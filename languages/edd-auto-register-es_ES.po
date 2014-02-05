@@ -1,0 +1,79 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Easy Digital Downloads - Auto Register\n"
+"POT-Creation-Date: 2013-10-29 21:36+1200\n"
+"PO-Revision-Date: 2013-10-30 05:19+0100\n"
+"Last-Translator: \n"
+"Language-Team: Joan Boluda <joan@boluda.com>\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../edd-auto-register.php:223
+msgid "Your login details"
+msgstr "Tu información de acceso"
+
+#: ../edd-auto-register.php:225
+msgid "Login details"
+msgstr "Información de acceso"
+
+#: ../edd-auto-register.php:258
+msgid "Dear"
+msgstr "Apreciado"
+
+#: ../edd-auto-register.php:259
+msgid "Below are your login details:"
+msgstr "Aquí están tus datos de acceso:"
+
+#: ../edd-auto-register.php:260
+msgid "Your Username:"
+msgstr "Nombre de usuario:"
+
+#: ../edd-auto-register.php:261
+msgid "Your Password:"
+msgstr "Contraseña:"
+
+#: ../edd-auto-register.php:288
+msgid "Email Address already in use"
+msgstr "Este Email ya está en uso"
+
+#: ../edd-auto-register.php:309
+msgid "You must login to complete your purchase"
+msgstr "Debes acceder para realizar tu compra"
+
+#: ../edd-auto-register.php:346
+msgid "Login To Purchase"
+msgstr "Acceder para comprar"
+
+#: ../edd-auto-register.php:351
+msgid "Username"
+msgstr "Usuario"
+
+#: ../edd-auto-register.php:352
+msgid "Your username"
+msgstr "Tu usuario"
+
+#: ../edd-auto-register.php:356
+msgid "Password"
+msgstr "Contraseña"
+
+#: ../edd-auto-register.php:357
+msgid "Your password"
+msgstr "Tu contraseña"
+
+#: ../edd-auto-register.php:379
+msgid "Auto Register"
+msgstr "Auto registro"
+
+#: ../edd-auto-register.php:384
+msgid "Send Login Details To Customer"
+msgstr "Enviar detalles al usuario"
+
+#: ../edd-auto-register.php:385
+msgid "Sends an email to the customer with their login and password"
+msgstr "Enviar un email al usuario con su contraseña y password"
