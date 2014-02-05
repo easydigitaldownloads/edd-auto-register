@@ -3,7 +3,7 @@
 Plugin Name: Easy Digital Downloads - Auto Register
 Plugin URI: http://sumobi.com/shop/edd-auto-register/
 Description: Automatically creates a WP user account at checkout, based on customer's email address.
-Version: 1.1
+Version: 1.2
 Author: Andrew Munro, Sumobi
 Author URI: http://sumobi.com/
 License: GPL-2.0+
@@ -82,7 +82,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 */
 		private function setup_globals() {
 
-			$this->version    = '1.1';
+			$this->version    = '1.2';
 
 			// paths
 			$this->file         = __FILE__;
@@ -277,19 +277,17 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 *
 		 * @since 1.1
 		*/
-		public function insert_user_args( $user_args, $user_data ) {
-			// generate random password
-			$password = wp_generate_password( 12, false );
+		public function insert_user_args( $user_args, $user_data ) {	
 			// set username login to be email. WordPress will strip +'s from email
 			$user_args['user_login'] = isset( $user_data['user_email'] ) ? $user_data['user_email'] : null;
 
 			// set user pass
-			$user_args['user_pass'] = $password;
+			$user_args['user_pass'] = wp_generate_password( 12, false ); // generate random password
 
 			// set nickname
 			$user_args['nickname'] = $user_data['user_first'];
 
-			return apply_filters( 'edd_auto_register_insert_user_args', $user_args );
+			return apply_filters( 'edd_auto_register_insert_user_args', $user_args, $user_data );
 		}
 
 		/**
@@ -345,8 +343,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 				return;
 
 			// message
-			$message = $this->get_email_body_content( $user_data['user_first'], $user_data['user_login'], $user_data['user_pass'] );
-
+			$message = $this->get_email_body_content( $user_data['user_first'], sanitize_user( $user_data['user_login'], true ), $user_data['user_pass'] );
 			// subject line
 			$subject = apply_filters( 'edd_auto_register_email_subject', sprintf( __( '[%s] Your username and password', 'edd-auto-register' ), $blogname ) );
 

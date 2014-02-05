@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: easy digital downloads, digital downloads, e-downloads, edd, sumobi, purchase, auto, register, registration, e-commerce
 Requires at least: 3.3
 Tested up to: 3.9 alpha
-Stable tag: 1.1
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,10 +109,14 @@ There's an option under downloads &rarr; settings &rarr; extensions
 
 == Upgrade Notice ==
 
-= 1.1 =
-Requires EDD 1.9 or greater. Will not work with older versions. User account creation now closely mimics that of EDD meaning a user account will be created no matter what payment gateway is used.
+= 1.2 =
+Minor code refactoring to allow for greater flexibility
 
 == Changelog ==
+
+= 1.2 =
+* Tweak: Pass $user_data along to edd_auto_register_insert_user_args filter
+* Tweak: Pass username through sanitize_user() function 
 
 = 1.1 =
 * New: User account creation now closely mimics that of EDD core meaning a user account will be created no matter what payment gateway is used
