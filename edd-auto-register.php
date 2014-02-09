@@ -278,9 +278,9 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 * @since 1.1
 		*/
 		public function insert_user_args( $user_args, $user_data ) {	
-		    if ( email_exists( $user_data['user_email'] ) ) {
-		        edd_set_error( 'edd_auto_register_error_email_exists', apply_filters( 'edd_auto_register_error_email_exists', __( 'Email Address already in use', 'edd-auto-register' ) ) ); 
-		    }
+			if ( email_exists( $user_data['user_email'] ) ) {
+				edd_set_error( 'edd_auto_register_error_email_exists', apply_filters( 'edd_auto_register_error_email_exists', __( 'Email Address already in use', 'edd-auto-register' ) ) ); 
+			}
 		    
 			// set username login to be email. WordPress will strip +'s from email
 			$user_args['user_login'] = isset( $user_data['user_email'] ) ? $user_data['user_email'] : null;
