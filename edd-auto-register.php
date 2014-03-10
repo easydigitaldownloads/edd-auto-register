@@ -3,7 +3,7 @@
 Plugin Name: Easy Digital Downloads - Auto Register
 Plugin URI: http://sumobi.com/shop/edd-auto-register/
 Description: Automatically creates a WP user account at checkout, based on customer's email address.
-Version: 1.2
+Version: 1.2.1
 Author: Andrew Munro, Sumobi
 Author URI: http://sumobi.com/
 License: GPL-2.0+
@@ -82,7 +82,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 */
 		private function setup_globals() {
 
-			$this->version    = '1.2';
+			$this->version    = '1.2.1';
 
 			// paths
 			$this->file         = __FILE__;
@@ -100,9 +100,12 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 * @return void
 		 */
 		private function hooks() {
-			
-		//	add_action( 'admin_init', array( $this, 'activation' ), 1 );
+			// activation
+			add_action( 'admin_init', array( $this, 'activation' ) );
 
+			// plugin meta
+			add_filter( 'plugin_row_meta', array( $this, 'plugin_meta' ), 10, 2 );
+			
 			// text domain
 			add_action( 'after_setup_theme', array( $this, 'load_textdomain' ) );
 
@@ -175,11 +178,11 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			$edd_plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/easy-digital-downloads/easy-digital-downloads.php', false, false );
 
 			if ( ! is_plugin_active('easy-digital-downloads/easy-digital-downloads.php') ) {
-				echo '<div class="error"><p>' . sprintf( __( 'You must install %sEasy Digital Downloads%s to use the EDD Auto Register Add-On.', 'edd-auto-register' ), '<a href="http://easydigitaldownloads.com" title="Easy Digital Downloads" target="_blank">', '</a>' ) . '</p></div>';
+				echo '<div class="error"><p>' . sprintf( __( 'You must install %sEasy Digital Downloads%s to use EDD Auto Register.', 'edd-auto-register' ), '<a href="http://easydigitaldownloads.com" title="Easy Digital Downloads" target="_blank">', '</a>' ) . '</p></div>';
 			}
 
 			if ( $edd_plugin_data['Version'] < '1.9' ) {
-				echo '<div class="error"><p>' . __( 'The EDD Auto Register Add-On requires at least Easy Digital Downloads Version 1.9. Please update Easy Digital Downloads.', 'edd-auto-register' ) . '</p></div>';
+				echo '<div class="error"><p>' . __( 'EDD Auto Register requires Easy Digital Downloads Version 1.9 or greater. Please update Easy Digital Downloads.', 'edd-auto-register' ) . '</p></div>';
 			}
 		}
 
@@ -509,7 +512,29 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			);
 
 			return array_merge( $settings, $edd_ar_settings );
-		}		
+		}
+
+		/**
+		 * Modify plugin metalinks
+		 *
+		 * @access      public
+		 * @since       1.0.0
+		 * @param       array $links The current links array
+		 * @param       string $file A specific plugin table entry
+		 * @return      array $links The modified links array
+		 */
+		public function plugin_meta( $links, $file ) {
+		    if ( $file == plugin_basename( __FILE__ ) ) {
+		        $plugins_link = array(
+		            '<a title="View more plugins for Easy Digital Downloads by Sumobi" href="https://easydigitaldownloads.com/blog/author/andrewmunro/?ref=166" target="_blank">' . __( 'Author\'s EDD plugins', 'edd-wish-lists' ) . '</a>'
+		        );
+
+		        $links = array_merge( $links, $plugins_link );
+		    }
+
+		    return $links;
+		}
+
 	}
 }
 

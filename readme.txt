@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: easy digital downloads, digital downloads, e-downloads, edd, sumobi, purchase, auto, register, registration, e-commerce
 Requires at least: 3.3
 Tested up to: 3.9 alpha
-Stable tag: 1.2
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,10 +109,13 @@ There's an option under downloads &rarr; settings &rarr; extensions
 
 == Upgrade Notice ==
 
-= 1.2 =
-Minor code refactoring to allow for greater flexibility
+= 1.2.1 =
+Fixes the activation check so it cannot be activated unless EDD is active
 
 == Changelog ==
+
+= 1.2.1 =
+* Fix: EDD activation check
 
 = 1.2 =
 * Tweak: Pass $user_data along to edd_auto_register_insert_user_args filter
