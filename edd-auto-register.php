@@ -105,7 +105,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 
 			// plugin meta
 			add_filter( 'plugin_row_meta', array( $this, 'plugin_meta' ), 10, 2 );
-			
+
 			// text domain
 			add_action( 'after_setup_theme', array( $this, 'load_textdomain' ) );
 
@@ -130,7 +130,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 
 			// filter user data
 			add_filter( 'edd_insert_user_data', array( $this, 'filter_user_data' ), 10, 2 );
-			
+
 			// show error before purchase form
 			add_action( 'edd_before_purchase_form', array( $this, 'edd_error_must_log_in' ) );
 
@@ -280,7 +280,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 *
 		 * @since 1.1
 		*/
-		public function insert_user_args( $user_args, $user_data ) {	
+		public function insert_user_args( $user_args, $user_data ) {
 			// set username login to be email. WordPress will strip +'s from email
 			$user_args['user_login'] = isset( $user_data['user_email'] ) ? $user_data['user_email'] : null;
 
@@ -340,7 +340,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			if ( ! $admin_email_disabled ) {
 				@wp_mail( get_option( 'admin_email' ), sprintf( __( '[%s] New User Registration', 'edd-auto-register' ), $blogname ), $message );
 			}
-			
+
 			// user registration
 			if ( empty( $user_data['user_pass'] ) )
 				return;
@@ -358,9 +358,15 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			$headers .= "Reply-To: ". $from_email . "\r\n";
 			$headers = apply_filters( 'edd_auto_register_headers', $headers );
 
+			$emails = EDD()->emails;
+
+			$emails->__set( 'from_name', $from_name );
+			$emails->__set( 'from_email', $from_email );
+			$emails->__set( 'headers', $headers );
+
 			// Email the user
 			if ( ! $user_email_disabled ) {
-				wp_mail( $user_data['user_email'], $subject, $message, $headers );
+				$emails->send( $user_data['user_email'], $subject, $message );
 			}
 
 		}
@@ -381,7 +387,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			$default_email_body .= __( "Login:", "edd-auto-register" ) . ' ' . wp_login_url() . "\r\n";
 
 			$default_email_body = apply_filters( 'edd_auto_register_email_body', $default_email_body, $first_name, $username, $password );
-			
+
 			return $default_email_body;
 		}
 
@@ -440,7 +446,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		*/
 		public function can_checkout( $can_checkout ) {
 			global $edd_options;
-			
+
 			if ( edd_no_guest_checkout() && !isset( $edd_options['show_register_form'] ) && ! is_user_logged_in() ) {
 				return false;
 			}
