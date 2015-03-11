@@ -358,15 +358,25 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			$headers .= "Reply-To: ". $from_email . "\r\n";
 			$headers = apply_filters( 'edd_auto_register_headers', $headers );
 
-			$emails = EDD()->emails;
+			if ( class_exists( 'EDD_Emails' ) ) {
 
-			$emails->__set( 'from_name', $from_name );
-			$emails->__set( 'from_email', $from_email );
-			$emails->__set( 'headers', $headers );
+				$emails = EDD()->emails;
 
-			// Email the user
-			if ( ! $user_email_disabled ) {
-				$emails->send( $user_data['user_email'], $subject, $message );
+				$emails->__set( 'from_name', $from_name );
+				$emails->__set( 'from_email', $from_email );
+				$emails->__set( 'headers', $headers );
+
+				// Email the user
+				if ( ! $user_email_disabled ) {
+					$emails->send( $user_data['user_email'], $subject, $message );
+				}
+
+			} else {
+
+				// Email the user
+				if ( ! $user_email_disabled ) {
+					wp_mail( $user_data['user_email'], $subject, $message, $headers );
+				}
 			}
 
 		}
