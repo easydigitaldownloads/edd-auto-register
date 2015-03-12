@@ -6,12 +6,16 @@ Description: Automatically creates a WP user account at checkout, based on custo
 Version: 1.2.1
 Author: Andrew Munro, Sumobi
 Author URI: http://sumobi.com/
+Text Domain: edd-auto-register
+Domain Path: languages
 License: GPL-2.0+
 License URI: http://www.opensource.org/licenses/gpl-license.php
 */
 
 // Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 
@@ -59,7 +63,6 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		private function __construct() {
 			self::$instance = $this;
 
-
 		}
 
 		/**
@@ -88,7 +91,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			$this->file         = __FILE__;
 			$this->basename     = apply_filters( 'edd_auto_register_plugin_basenname', plugin_basename( $this->file ) );
 			$this->plugin_dir   = apply_filters( 'edd_auto_register_plugin_dir_path',  plugin_dir_path( $this->file ) );
-			$this->plugin_url   = apply_filters( 'edd_auto_register_plugin_dir_url',   plugin_dir_url ( $this->file ) );
+			$this->plugin_url   = apply_filters( 'edd_auto_register_plugin_dir_url',   plugin_dir_url( $this->file ) );
 
 		}
 
@@ -159,13 +162,12 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 				// is this plugin active?
 				if ( is_plugin_active( $this->basename ) ) {
 					// deactivate the plugin
-			 		deactivate_plugins( $this->basename );
-			 		// unset activation notice
-			 		unset( $_GET[ 'activate' ] );
-			 		// display notice
-			 		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+					deactivate_plugins( $this->basename );
+					// unset activation notice
+					unset( $_GET[ 'activate' ] );
+					// display notice
+					add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 				}
-
 			}
 		}
 
@@ -173,11 +175,11 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 * Admin notices
 		 *
 		 * @since 1.0
-		*/
+		 */
 		public function admin_notices() {
 			$edd_plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/easy-digital-downloads/easy-digital-downloads.php', false, false );
 
-			if ( ! is_plugin_active('easy-digital-downloads/easy-digital-downloads.php') ) {
+			if ( ! is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) ) {
 				echo '<div class="error"><p>' . sprintf( __( 'You must install %sEasy Digital Downloads%s to use EDD Auto Register.', 'edd-auto-register' ), '<a href="http://easydigitaldownloads.com" title="Easy Digital Downloads" target="_blank">', '</a>' ) . '</p></div>';
 			}
 
@@ -190,7 +192,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 * Template redirect functions
 		 *
 		 * @since 1.1
-		*/
+		 */
 		public function template_redirect() {
 			global $edd_options;
 
@@ -206,7 +208,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 				// set error if email already exists
 				// commented out while I rethink how this will work
 				// will need to either use ajax to switch the form or consider putting more hooks in EDD core.
-			//	add_action( 'edd_checkout_error_checks', array( $this, 'set_error' ), 10, 2 );
+				// add_action( 'edd_checkout_error_checks', array( $this, 'set_error' ), 10, 2 );
 
 				// settings -> misc -> disable guest checkout
 				// settings -> misc -> show register/login form?
@@ -219,7 +221,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 				}
 				// settings -> misc -> disable guest checkout
 				elseif ( $disable_guest_checkout ) {
-					 remove_action( 'edd_payment_mode_select', 'edd_payment_mode_select' );
+					remove_action( 'edd_payment_mode_select', 'edd_payment_mode_select' );
 				}
 				// settings -> misc -> show register/login form?
 				elseif ( $show_register_login_form ) {
@@ -268,7 +270,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 * Set need_new_user flag to true
 		 *
 		 * @since 1.1
-		*/
+		 */
 		public function purchase_data_before_gateway( $purchase_data, $valid_data ) {
 			$valid_data['need_new_user'] = true;
 
@@ -279,12 +281,12 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 * Modify user args to create our new user
 		 *
 		 * @since 1.1
-		*/
+		 */
 		public function insert_user_args( $user_args, $user_data ) {
 			if ( email_exists( $user_data['user_email'] ) ) {
-				edd_set_error( 'edd_auto_register_error_email_exists', apply_filters( 'edd_auto_register_error_email_exists', __( 'Email Address already in use', 'edd-auto-register' ) ) ); 
+				edd_set_error( 'edd_auto_register_error_email_exists', apply_filters( 'edd_auto_register_error_email_exists', __( 'Email Address already in use', 'edd-auto-register' ) ) );
 			}
-		    
+
 			// set username login to be email. WordPress will strip +'s from email
 			$user_args['user_login'] = isset( $user_data['user_email'] ) ? $user_data['user_email'] : null;
 
@@ -301,7 +303,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 * Filter the user data so we can auto login
 		 *
 		 * @since 1.1
-		*/
+		 */
 		public function filter_user_data( $user_data, $user_args ) {
 			$user_data['user_login'] = $user_args['user_login'];
 			$user_data['user_pass'] = $user_args['user_pass'];
@@ -313,7 +315,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 * Add hidden input which tells the form there needs to be a registration process
 		 *
 		 * @since 1.1
-		*/
+		 */
 		public function add_needs_to_register_flag() { ?>
 			<input type="hidden" name="edd-purchase-var" value="needs-to-register" />
 		<?php }
@@ -324,7 +326,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 * Sends the user an email with their logins details and also sends the site admin an email notifying them of a signup
 		 *
 		 * @since 1.1
-		*/
+		 */
 		public function email_notifications( $user_id = 0, $user_data = array() ) {
 			global $edd_options;
 
@@ -335,7 +337,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 
 			// The blogname option is escaped with esc_html on the way into the database in sanitize_option
 			// we want to reverse this for the plain text arena of emails.
-			$blogname = wp_specialchars_decode( get_option('blogname' ), ENT_QUOTES );
+			$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
 
 			$message  = sprintf( __( 'New user registration on your site %s:', 'edd-auto-register' ), $blogname ) . "\r\n\r\n";
 			$message .= sprintf( __( 'Username: %s', 'edd-auto-register' ), $user->user_login ) . "\r\n\r\n";
@@ -346,8 +348,9 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			}
 
 			// user registration
-			if ( empty( $user_data['user_pass'] ) )
+			if ( empty( $user_data['user_pass'] ) ) {
 				return;
+			}
 
 			// message
 			$message = $this->get_email_body_content( $user_data['user_first'], sanitize_user( $user_data['user_login'], true ), $user_data['user_pass'] );
@@ -411,14 +414,15 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 *
 		 * @since 1.0
 		 * @todo  remove from plugin, no longer needed
-		*/
+		 */
 		public function set_error( $valid_data, $post_data ) {
-			if ( edd_no_guest_checkout() )
+			if ( edd_no_guest_checkout() ) {
 				return;
+			}
 
-			$email_address 	= isset( $valid_data['new_user_data']['user_email'] ) ? $valid_data['new_user_data']['user_email'] : '';
-			$email_address 	= sanitize_user( $email_address, true );
-			$user_id 		= username_exists( $email_address );
+			$email_address  = isset( $valid_data['new_user_data']['user_email'] ) ? $valid_data['new_user_data']['user_email'] : '';
+			$email_address  = sanitize_user( $email_address, true );
+			$user_id   = username_exists( $email_address );
 
 			// check to see if the username exists already and an email hasn't already been registered against username
 			if ( $email_address && ( $user_id || email_exists( $valid_data['new_user_data']['user_email'] ) ) ) {
@@ -434,15 +438,16 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 * Error displayed when User must be logged in (Guest Checkout disabled) and there is no Register / Login Form enabled
 		 *
 		 * @since 1.0
-		*/
+		 */
 		public function edd_error_must_log_in() {
 			global $edd_options;
 
 			// return if user is already logged in
-			if ( is_user_logged_in() )
+			if ( is_user_logged_in() ) {
 				return;
+			}
 
-			if ( edd_no_guest_checkout() && !isset( $edd_options['show_register_form'] ) ) {
+			if ( edd_no_guest_checkout() && ! isset( $edd_options['show_register_form'] ) ) {
 				edd_set_error( 'edd_auto_register_error_must_login', apply_filters( 'edd_auto_register_error_must_login', __( 'You must login to complete your purchase', 'edd-auto-register' ) ) );
 			}
 			else {
@@ -457,11 +462,11 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 * Prevents the form from being displayed when User must be logged in (Guest Checkout disabled), but "Show Register / Login Form?" is not
 		 *
 		 * @since 1.0
-		*/
+		 */
 		public function can_checkout( $can_checkout ) {
 			global $edd_options;
 
-			if ( edd_no_guest_checkout() && !isset( $edd_options['show_register_form'] ) && ! is_user_logged_in() ) {
+			if ( edd_no_guest_checkout() && ! isset( $edd_options['show_register_form'] ) && ! is_user_logged_in() ) {
 				return false;
 			}
 
@@ -485,12 +490,12 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 
 					<p id="edd-user-login-wrap">
 						<label class="edd-label" for="edd-username"><?php _e( 'Username', 'edd-auto-register' ); ?></label>
-						<input class="<?php if(edd_no_guest_checkout()) { echo 'required '; } ?>edd-input" type="text" name="edd_user_login" id="edd_user_login" value="" placeholder="<?php _e( 'Your username', 'edd-auto-register' ); ?>"/>
+						<input class="<?php if ( edd_no_guest_checkout() ) { echo 'required '; } ?>edd-input" type="text" name="edd_user_login" id="edd_user_login" value="" placeholder="<?php _e( 'Your username', 'edd-auto-register' ); ?>"/>
 					</p>
 
 					<p id="edd-user-pass-wrap" class="edd_login_password">
 						<label class="edd-label" for="edd-password"><?php _e( 'Password', 'edd-auto-register' ); ?></label>
-						<input class="<?php if(edd_no_guest_checkout()) { echo 'required '; } ?>edd-input" type="password" name="edd_user_pass" id="edd_user_pass" placeholder="<?php _e( 'Your password', 'edd-auto-register' ); ?>"/>
+						<input class="<?php if ( edd_no_guest_checkout() ) { echo 'required '; } ?>edd-input" type="password" name="edd_user_pass" id="edd_user_pass" placeholder="<?php _e( 'Your password', 'edd-auto-register' ); ?>"/>
 						<input type="hidden" name="edd-purchase-var" value="needs-to-login"/>
 					</p>
 
@@ -509,25 +514,25 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 * Settings
 		 *
 		 * @since 1.1
-		*/
+		 */
 		public function settings( $settings ) {
-		  $edd_ar_settings = array(
+			$edd_ar_settings = array(
 				array(
 					'id' => 'edd_auto_register_header',
 					'name' => '<strong>' . __( 'Auto Register', 'edd-auto-register' ) . '</strong>',
-					'type' => 'header'
+					'type' => 'header',
 				),
 				array(
 					'id' => 'edd_auto_register_disable_user_email',
 					'name' => __( 'Disable User Email', 'edd-auto-register' ),
 					'desc' => __( 'Disables the email sent to the user that contains login details', 'edd-auto-register' ),
-					'type' => 'checkbox'
+					'type' => 'checkbox',
 				),
 				array(
 					'id' => 'edd_auto_register_disable_admin_email',
 					'name' => __( 'Disable Admin Notification', 'edd-auto-register' ),
 					'desc' => __( 'Disables the new user registration email sent to the admin', 'edd-auto-register' ),
-					'type' => 'checkbox'
+					'type' => 'checkbox',
 				),
 			);
 
@@ -539,20 +544,20 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 *
 		 * @access      public
 		 * @since       1.0.0
-		 * @param       array $links The current links array
-		 * @param       string $file A specific plugin table entry
+		 * @param array   $links The current links array
+		 * @param string  $file  A specific plugin table entry
 		 * @return      array $links The modified links array
 		 */
 		public function plugin_meta( $links, $file ) {
-		    if ( $file == plugin_basename( __FILE__ ) ) {
-		        $plugins_link = array(
-		            '<a title="View more plugins for Easy Digital Downloads by Sumobi" href="https://easydigitaldownloads.com/blog/author/andrewmunro/?ref=166" target="_blank">' . __( 'Author\'s EDD plugins', 'edd-wish-lists' ) . '</a>'
-		        );
+			if ( $file == plugin_basename( __FILE__ ) ) {
+				$plugins_link = array(
+					'<a title="View more plugins for Easy Digital Downloads by Sumobi" href="https://easydigitaldownloads.com/blog/author/andrewmunro/?ref=166" target="_blank">' . __( 'Author\'s EDD plugins', 'edd-wish-lists' ) . '</a>'
+				);
 
-		        $links = array_merge( $links, $plugins_link );
-		    }
+				$links = array_merge( $links, $plugins_link );
+			}
 
-		    return $links;
+			return $links;
 		}
 
 	}
@@ -582,5 +587,5 @@ function edd_auto_register() {
  * Loads plugin after all the others have loaded and have registered their hooks and filters
  *
  * @since 1.0
-*/
+ */
 add_action( 'plugins_loaded', 'edd_auto_register', apply_filters( 'edd_auto_register_action_priority', 10 ) );
