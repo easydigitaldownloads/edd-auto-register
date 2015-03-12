@@ -1,127 +1,143 @@
+# Copyright (C) 2015 Easy Digital Downloads - Auto Register
+# This file is distributed under the same license as the Easy Digital Downloads - Auto Register package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Easy Digital Downloads - Auto Register\n"
-"POT-Creation-Date: 2014-01-08 14:02+1200\n"
-"PO-Revision-Date: 2014-01-08 14:03+1200\n"
-"Last-Translator: \n"
-"Language-Team: Sumobi <andrew@sumobi.com>\n"
-"Language: en_US\n"
+"Project-Id-Version: Easy Digital Downloads - Auto Register 1.2.1\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/edd-auto-register\n"
+"POT-Creation-Date: 2015-03-12 15:32:22+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.3\n"
-"X-Poedit-KeywordsList: __;_e\n"
-"X-Poedit-Basepath: .\n"
+"PO-Revision-Date: 2015-03-12 16:34+0100\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: fxbenard | FxB <fx@fxbenard.com>\n"
+"Language-Team: \n"
+"Language: en_US\n"
+"X-Generator: Poedit 1.7.5\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: ..\n"
 
-#: ../edd-auto-register.php:178
-#, php-format
+#: edd-auto-register.php:183
+msgid "You must install %sEasy Digital Downloads%s to use EDD Auto Register."
+msgstr ""
+
+#: edd-auto-register.php:187
 msgid ""
-"You must install %sEasy Digital Downloads%s to use the EDD Auto Register Add-"
-"On."
+"EDD Auto Register requires Easy Digital Downloads Version 1.9 or greater. Please update Easy Digital "
+"Downloads."
 msgstr ""
 
-#: ../edd-auto-register.php:182
-msgid ""
-"The EDD Auto Register Add-On requires at least Easy Digital Downloads "
-"Version 1.9. Please update Easy Digital Downloads."
-msgstr ""
-
-#: ../edd-auto-register.php:335
-#, php-format
-msgid "New user registration on your site %s:"
-msgstr ""
-
-#: ../edd-auto-register.php:336
-#, php-format
-msgid "Username: %s"
-msgstr ""
-
-#: ../edd-auto-register.php:337
-#, php-format
-msgid "E-mail: %s"
-msgstr ""
-
-#: ../edd-auto-register.php:340
-#, php-format
-msgid "[%s] New User Registration"
-msgstr ""
-
-#: ../edd-auto-register.php:351
-#, php-format
-msgid "[%s] Your username and password"
-msgstr ""
-
-#: ../edd-auto-register.php:377
-msgid "Dear"
-msgstr ""
-
-#: ../edd-auto-register.php:378
-msgid "Below are your login details:"
-msgstr ""
-
-#: ../edd-auto-register.php:379
-msgid "Your Username:"
-msgstr ""
-
-#: ../edd-auto-register.php:380
-msgid "Your Password:"
-msgstr ""
-
-#: ../edd-auto-register.php:381
-msgid "Login:"
-msgstr ""
-
-#: ../edd-auto-register.php:405
+#: edd-auto-register.php:287 edd-auto-register.php:429
 msgid "Email Address already in use"
 msgstr ""
 
-#: ../edd-auto-register.php:426
+#: edd-auto-register.php:342
+msgid "New user registration on your site %s:"
+msgstr ""
+
+#: edd-auto-register.php:343
+msgid "Username: %s"
+msgstr ""
+
+#: edd-auto-register.php:344
+msgid "E-mail: %s"
+msgstr ""
+
+#: edd-auto-register.php:347
+msgid "[%s] New User Registration"
+msgstr ""
+
+#: edd-auto-register.php:358
+msgid "[%s] Your username and password"
+msgstr ""
+
+#: edd-auto-register.php:400
+msgid "Dear"
+msgstr ""
+
+#: edd-auto-register.php:401
+msgid "Below are your login details:"
+msgstr ""
+
+#: edd-auto-register.php:402
+msgid "Your Username:"
+msgstr ""
+
+#: edd-auto-register.php:403
+msgid "Your Password:"
+msgstr ""
+
+#: edd-auto-register.php:404
+msgid "Login:"
+msgstr ""
+
+#: edd-auto-register.php:451
 msgid "You must login to complete your purchase"
 msgstr ""
 
-#: ../edd-auto-register.php:462
+#: edd-auto-register.php:487
 msgid "Login To Purchase"
 msgstr ""
 
-#: ../edd-auto-register.php:467
+#: edd-auto-register.php:492
 msgid "Username"
 msgstr ""
 
-#: ../edd-auto-register.php:468
+#: edd-auto-register.php:493
 msgid "Your username"
 msgstr ""
 
-#: ../edd-auto-register.php:472
+#: edd-auto-register.php:497
 msgid "Password"
 msgstr ""
 
-#: ../edd-auto-register.php:473
+#: edd-auto-register.php:498
 msgid "Your password"
 msgstr ""
 
-#: ../edd-auto-register.php:477
+#: edd-auto-register.php:502
 msgid "Lost Password?"
 msgstr ""
 
-#: ../edd-auto-register.php:497
+#: edd-auto-register.php:522
 msgid "Auto Register"
 msgstr ""
 
-#: ../edd-auto-register.php:502
+#: edd-auto-register.php:527
 msgid "Disable User Email"
 msgstr ""
 
-#: ../edd-auto-register.php:503
+#: edd-auto-register.php:528
 msgid "Disables the email sent to the user that contains login details"
 msgstr ""
 
-#: ../edd-auto-register.php:508
+#: edd-auto-register.php:533
 msgid "Disable Admin Notification"
 msgstr ""
 
-#: ../edd-auto-register.php:509
+#: edd-auto-register.php:534
 msgid "Disables the new user registration email sent to the admin"
+msgstr ""
+
+#: edd-auto-register.php:554
+msgid "Author's EDD plugins"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Easy Digital Downloads - Auto Register"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://sumobi.com/shop/edd-auto-register/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Automatically creates a WP user account at checkout, based on customer's email address."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Andrew Munro, Sumobi"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://sumobi.com/"
 msgstr ""
