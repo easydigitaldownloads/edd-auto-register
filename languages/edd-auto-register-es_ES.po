@@ -1,9 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Easy Digital Downloads - Auto Register\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/edd-auto-"
-"register\n"
-"POT-Creation-Date: 2015-03-12 15:32:22+00:00\n"
+"Report-Msgid-Bugs-To: Andrew Munro <andrew@sumobi.com>\n"
+"POT-Creation-Date: 2015-04-01 15:42:28+00:00\n"
 "PO-Revision-Date: 2015-03-12 16:33+0100\n"
 "Last-Translator: fxbenard | FxB <fx@fxbenard.com>\n"
 "Language-Team: Joan Boluda <joan@boluda.com>\n"
@@ -126,26 +125,10 @@ msgstr ""
 msgid "Author's EDD plugins"
 msgstr ""
 
-#. Plugin Name of the plugin/theme
-msgid "Easy Digital Downloads - Auto Register"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-msgid "http://sumobi.com/shop/edd-auto-register/"
-msgstr ""
-
 #. Description of the plugin/theme
 msgid ""
 "Automatically creates a WP user account at checkout, based on customer's "
 "email address."
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "Andrew Munro, Sumobi"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "http://sumobi.com/"
 msgstr ""
 
 #~ msgid "Your login details"
