@@ -1,0 +1,146 @@
+# Copyright (C) 2015 Easy Digital Downloads - Auto Register
+# This file is distributed under the same license as the Easy Digital Downloads - Auto Register package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Easy Digital Downloads - Auto Register 1.2.1\n"
+"Report-Msgid-Bugs-To: Andrew Munro <andrew@sumobi.com>\n"
+"POT-Creation-Date: 2015-04-01 15:42:28+00:00\n"
+"PO-Revision-Date: 2015-07-29 11:46+0200\n"
+"Last-Translator: fxbenard | FxB <fx@fxbenard.com>\n"
+"Language-Team: \n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 1.8.3\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: edd-auto-register.php:183
+msgid "You must install %sEasy Digital Downloads%s to use EDD Auto Register."
+msgstr ""
+"Vous devez installer %sEasy Digital Downloads%s pour que l'extension EDD Auto Register fonctionne."
+
+#: edd-auto-register.php:187
+msgid ""
+"EDD Auto Register requires Easy Digital Downloads Version 1.9 or greater. Please update Easy Digital "
+"Downloads."
+msgstr ""
+"EDD Auto Register nécessite Easy Digital Downloads en version 1.9 ou supérieure. Veuillez mettre à "
+"jour Easy Digital Downloads avant d'activer l'extension."
+
+#: edd-auto-register.php:287 edd-auto-register.php:429
+msgid "Email Address already in use"
+msgstr "Cette adresse de messagerie est déjà utilisée"
+
+#: edd-auto-register.php:342
+msgid "New user registration on your site %s:"
+msgstr "Inscription d'un nouvel utilisateur sur votre site %s :"
+
+#: edd-auto-register.php:343
+msgid "Username: %s"
+msgstr "Identifiant : %s"
+
+#: edd-auto-register.php:344
+msgid "E-mail: %s"
+msgstr "E-mail : %s"
+
+#: edd-auto-register.php:347
+msgid "[%s] New User Registration"
+msgstr "[%s] Inscription d'un nouvel utilisateur"
+
+#: edd-auto-register.php:358
+msgid "[%s] Your username and password"
+msgstr "[%s] Votre identifiant et mot de passe"
+
+#: edd-auto-register.php:400
+msgid "Dear"
+msgstr "Cher(e)"
+
+#: edd-auto-register.php:401
+msgid "Below are your login details:"
+msgstr "Retrouvez ci-dessous vos informations de connexion :"
+
+#: edd-auto-register.php:402
+msgid "Your Username:"
+msgstr "Votre identifiant :"
+
+#: edd-auto-register.php:403
+msgid "Your Password:"
+msgstr "Votre mot de passe :"
+
+#: edd-auto-register.php:404
+msgid "Login:"
+msgstr "Connexion :"
+
+#: edd-auto-register.php:451
+msgid "You must login to complete your purchase"
+msgstr "Vous devez être connecté afin de terminer votre achat"
+
+#: edd-auto-register.php:487
+msgid "Login To Purchase"
+msgstr "Se connecter pour acheter"
+
+#: edd-auto-register.php:492
+msgid "Username"
+msgstr "Nom d'utilisateur"
+
+#: edd-auto-register.php:493
+msgid "Your username"
+msgstr "Votre identifiant"
+
+#: edd-auto-register.php:497
+msgid "Password"
+msgstr "Mot de passe"
+
+#: edd-auto-register.php:498
+msgid "Your password"
+msgstr "Votre mot de passe"
+
+#: edd-auto-register.php:502
+msgid "Lost Password?"
+msgstr "Mot de passe oublié&nbsp;?"
+
+#: edd-auto-register.php:522
+msgid "Auto Register"
+msgstr "Enregistrement automatique"
+
+#: edd-auto-register.php:527
+msgid "Disable User Email"
+msgstr "Désactiver l&rsquo;e-mail de confirmation à l&rsquo;utilisateur"
+
+#: edd-auto-register.php:528
+msgid "Disables the email sent to the user that contains login details"
+msgstr "Désactiver l&rsquo;e-mail envoyé à l&rsquo;utilisateur qui contient ses détails de connexion."
+
+#: edd-auto-register.php:533
+msgid "Disable Admin Notification"
+msgstr "Désactiver la notification à l'administrateur"
+
+#: edd-auto-register.php:534
+msgid "Disables the new user registration email sent to the admin"
+msgstr ""
+"Désactiver l&rsquo;e-mail envoyé à l&rsquo;administrateur lorsqu&rsquo;un nouvel utilisateur est "
+"enregistré."
+
+#: edd-auto-register.php:554
+msgid "Author's EDD plugins"
+msgstr "Extensions EDD de l'auteur"
+
+#. Description of the plugin/theme
+msgid "Automatically creates a WP user account at checkout, based on customer's email address."
+msgstr ""
+"Créer automatiquement un compte d'utilisateur WP lors de la commande, basé sur l&rsquo;adresse e-mail "
+"de votre client."
+
+#~ msgid "Easy Digital Downloads - Auto Register"
+#~ msgstr "Easy Digital Downloads - Auto Register"
+
+#~ msgid "http://sumobi.com/shop/edd-auto-register/"
+#~ msgstr "http://sumobi.com/shop/edd-auto-register/"
+
+#~ msgid "Andrew Munro, Sumobi"
+#~ msgstr "Andrew Munro, Sumobi"
+
+#~ msgid "http://sumobi.com/"
+#~ msgstr "http://sumobi.com/"
