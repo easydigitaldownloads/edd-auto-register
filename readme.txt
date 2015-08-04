@@ -118,6 +118,12 @@ There's an option under downloads &rarr; settings &rarr; extensions
 
 == Changelog ==
 
+= 1.3 =
+
+* Fix: Resolves compatibility issues with Easy Digital Downloads 2.1+
+* Fix: User accounts now created anytime a payment record is created, not just during checkout to resolve compatibility with some extensions
+* Fix: Dramatically simplified code base
+
 = 1.2.1 =
 * Fix: EDD activation check
 
