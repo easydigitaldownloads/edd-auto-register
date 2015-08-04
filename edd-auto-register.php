@@ -133,7 +133,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 
 			// Ensure registration form is never shown
 			add_filter( 'edd_get_option_show_register_form', array( $this, 'remove_register_form' ), 10, 3 );
-			
+
 			// Force guest checkout to be enabled
 			add_filter( 'edd_no_guest_checkout', '__return_false' );
 			add_filter( 'edd_logged_in_only', '__return_false' );
@@ -286,19 +286,19 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		public function maybe_insert_user( $payment_id, $payment_data ) {
 
 			// User account already associated
-			if( $payment_data['user_info']['id'] > 0 ) {
+			if ( $payment_data['user_info']['id'] > 0 ) {
 				return;
 			}
 
 			// User account already exists
-			if( get_user_by( 'email', $payment_data['user_info']['email'] ) ) {
+			if ( get_user_by( 'email', $payment_data['user_info']['email'] ) ) {
 				return;
 			}
 
 			$user_name = sanitize_user( $payment_data['user_info']['email'] );
 
 			// Username already exists
-			if( username_exists( $user_name ) ) {
+			if ( username_exists( $user_name ) ) {
 				return;
 			}
 
@@ -339,7 +339,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 
 				// Only log user in if processing checkout screen
 				edd_log_user_in( $user_id, $user_args['user_login'], $user_args['user_pass'] );
-	
+
 			}
 
 		}
@@ -379,8 +379,8 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 * @since 1.3
 		 */
 		public function remove_register_form( $value, $key, $default ) {
-		
-			if( 'both' === $value || 'registration' === $value ) {
+
+			if ( 'both' === $value || 'registration' === $value ) {
 				$value = 'login';
 			}
 
@@ -412,7 +412,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 }
 
 /**
- * Loads a single instance of EDD Wish Lists
+ * Loads a single instance of EDD Auto Register
  *
  * This follows the PHP singleton design pattern.
  *
