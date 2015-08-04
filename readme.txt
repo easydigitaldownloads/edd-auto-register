@@ -12,7 +12,7 @@ Automatically creates a WP user account at checkout, based on customer's email a
 
 == Description ==
 
-This plugin now requires [Easy Digital Downloads](http://wordpress.org/extend/plugins/easy-digital-downloads/ "Easy Digital Downloads") v2.3 or greater. 
+This plugin now requires [Easy Digital Downloads](http://wordpress.org/extend/plugins/easy-digital-downloads/ "Easy Digital Downloads") v2.3 or greater.
 
 [View the live demo](http://edd-auto-register.sumobithemes.com/downloads/test-download/ "Live Demo")
 
@@ -32,10 +32,10 @@ Shop Front was designed to be simple, responsive and lightweight. It has only th
 
 **Stay up to date**
 
-*Become a fan on Facebook* 
+*Become a fan on Facebook*
 [http://www.facebook.com/sumobicom](http://www.facebook.com/sumobicom "Facebook")
 
-*Follow me on Twitter* 
+*Follow me on Twitter*
 [http://twitter.com/sumobi_](http://twitter.com/sumobi_ "Twitter")
 
 == Installation ==
@@ -123,7 +123,7 @@ There's an option under downloads &rarr; settings &rarr; extensions
 
 = 1.2 =
 * Tweak: Pass $user_data along to edd_auto_register_insert_user_args filter
-* Tweak: Pass username through sanitize_user() function 
+* Tweak: Pass username through sanitize_user() function
 
 = 1.1 =
 * New: User account creation now closely mimics that of EDD core meaning a user account will be created no matter what payment gateway is used
