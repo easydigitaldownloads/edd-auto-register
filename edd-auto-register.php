@@ -4,7 +4,7 @@ Plugin Name: Easy Digital Downloads - Auto Register
 Plugin URI: http://sumobi.com/shop/edd-auto-register/
 Description: Automatically creates a WP user account at checkout, based on customer's email address.
 Version: 1.3
-Author: Andrew Munro and Pippin Willianson
+Author: Andrew Munro and Pippin Williamson
 Contributors: sumobi, mordauk
 Author URI: http://sumobi.com/
 Text Domain: edd-auto-register
