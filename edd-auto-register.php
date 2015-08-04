@@ -25,7 +25,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		/**
 		 * Holds the instance
 		 *
-		 * Ensures that only one instance of EDD Wish Lists exists in memory at any one
+		 * Ensures that only one instance of EDD Auto Register exists in memory at any one
 		 * time and it also prevents needing to define globals all over the place.
 		 *
 		 * TL;DR This is a static property property that holds the singleton instance.
@@ -399,7 +399,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		public function plugin_meta( $links, $file ) {
 			if ( $file == plugin_basename( __FILE__ ) ) {
 				$plugins_link = array(
-					'<a title="View more plugins for Easy Digital Downloads by Sumobi" href="https://easydigitaldownloads.com/blog/author/andrewmunro/?ref=166" target="_blank">' . __( 'Author\'s EDD plugins', 'edd-wish-lists' ) . '</a>'
+					'<a title="View more plugins for Easy Digital Downloads by Sumobi" href="https://easydigitaldownloads.com/blog/author/andrewmunro/?ref=166" target="_blank">' . __( 'Author\'s EDD plugins', 'edd-auto-register' ) . '</a>'
 				);
 
 				$links = array_merge( $links, $plugins_link );
