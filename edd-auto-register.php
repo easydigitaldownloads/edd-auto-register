@@ -379,12 +379,16 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			// Guest purchasing disabled
 			if ( edd_no_guest_checkout() ) {
 
-				// Not logged in so force login
-				if ( ! is_user_logged_in() )
+				if ( ! is_user_logged_in() ) {
+
+					// Not logged in so force login
 					$value = 'login';
 
-				// No form if logged in
-				else $value = 'none';
+				} else {
+
+					// No form if logged in
+					$value = 'none';
+				}
 			
 			} elseif ( ( 'both' === $value || 'registration' === $value ) ) {
 				
