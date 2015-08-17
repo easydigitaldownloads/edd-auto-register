@@ -134,10 +134,6 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			// Ensure registration form is never shown
 			add_filter( 'edd_get_option_show_register_form', array( $this, 'remove_register_form' ), 10, 3 );
 
-			// Force guest checkout to be enabled
-			add_filter( 'edd_no_guest_checkout', '__return_false' );
-			add_filter( 'edd_logged_in_only', '__return_false' );
-
 			do_action( 'edd_auto_register_setup_actions' );
 		}
 
@@ -374,14 +370,30 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		}
 
 		/**
-		 * Removes the registration form and changes it to a log in form
+		 * Change the registration form depending on a few conditions
 		 *
 		 * @since 1.3
 		 */
 		public function remove_register_form( $value, $key, $default ) {
 
-			if ( 'both' === $value || 'registration' === $value ) {
-				$value = 'login';
+			// Guest purchasing disabled
+			if ( edd_no_guest_checkout() ) {
+
+				if ( ! is_user_logged_in() ) {
+
+					// Not logged in so force login
+					$value = 'login';
+
+				} else {
+
+					// No form if logged in
+					$value = 'none';
+				}
+			
+			} elseif ( ( 'both' === $value || 'registration' === $value ) ) {
+				
+				// Always remove registration form
+				$value = 'none';
 			}
 
 			return $value;
