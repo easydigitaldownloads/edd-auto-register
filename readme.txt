@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: easy digital downloads, digital downloads, e-downloads, edd, sumobi, purchase, auto, register, registration, e-commerce
 Requires at least: 3.3
 Tested up to: 4.3
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -106,6 +106,9 @@ There's an option under downloads &rarr; settings &rarr; extensions
 1. The error message that shows when "Disable Guest Checkout" is enabled, but "Show Register / Login Form?" is not
 
 == Upgrade Notice ==
+
+= 1.3.2 =
+* Fix: Correct compatibility with Easy Digital Downloads user verification process.
 
 = 1.3.1 =
 
