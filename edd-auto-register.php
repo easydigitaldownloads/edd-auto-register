@@ -310,6 +310,21 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 				'role'            => get_option( 'default_role' )
 			), $payment_id, $payment_data );
 
+			$customer    = new EDD_Customer( $payment_data['user_info']['email'] );
+			$payment_ids = explode( ',', $customer->payment_ids );
+
+			if ( is_array( $payment_ids ) && ! empty( $payment_ids ) ) {
+
+				$payment_ids = array_map( 'absint', $payment_ids );
+
+				// If the payment inserted is the only payment, we don't need verification
+				if ( 1 === count( $payment_ids ) && in_array( $payment_id, $payment_ids ) ) {
+					remove_action( 'user_register', 'edd_connect_existing_customer_to_new_user', 10, 1 );
+					remove_action( 'user_register', 'edd_add_past_purchases_to_new_user', 10, 1 );
+				}
+
+			}
+
 			// Insert new user
 			$user_id = wp_insert_user( $user_args );
 
@@ -325,7 +340,6 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			edd_update_payment_meta( $payment_id, '_edd_payment_user_id', $user_id );
 			edd_update_payment_meta( $payment_id, '_edd_payment_meta', $payment_meta );
 
-			$customer = new EDD_Customer( $payment_data['user_info']['email'] );
 			$customer->update( array( 'user_id' => $user_id ) );
 
 			// Allow themes and plugins to hook
@@ -389,9 +403,9 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 					// No form if logged in
 					$value = 'none';
 				}
-			
+
 			} elseif ( ( 'both' === $value || 'registration' === $value ) ) {
-				
+
 				// Always remove registration form
 				$value = 'none';
 			}
