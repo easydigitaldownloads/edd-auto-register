@@ -187,7 +187,6 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 * @since 1.1
 		 */
 		public function email_notifications( $user_id = 0, $user_data = array() ) {
-			global $edd_options;
 
 			$user = get_userdata( $user_id );
 
@@ -265,7 +264,6 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 * @since 1.0
 		 */
 		public function can_checkout( $can_checkout ) {
-			global $edd_options;
 
 			if ( edd_no_guest_checkout() && ! edd_get_option( 'show_register_form' ) && ! is_user_logged_in() ) {
 				return false;
