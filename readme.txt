@@ -18,6 +18,8 @@ This plugin now requires [Easy Digital Downloads](http://wordpress.org/extend/pl
 
 Once activated, EDD Auto Register will create a WordPress user account for your customer at checkout, without the need for the customer to enter any additional information. This eliminates the need for the default EDD registration form, and drastically reduces the time it takes your customers to complete their purchase.
 
+Guest checkout is required so the plugin overrides the setting. The registration form is hidden on checkout while the plugin is active.
+
 There are various filters available for developers, see the FAQ tab for more information.
 
 **More add-ons for Easy Digital Downloads**
@@ -61,6 +63,7 @@ There are filters available to modify the behaviour of the plugin, see the list 
 1. edd_auto_register_email_body
 1. edd_auto_register_error_must_login
 1. edd_auto_register_login_form
+1. edd_auto_register_disable
 
 = Can you provide a filter example of how to change the email's subject? =
 
@@ -95,6 +98,30 @@ Add the following to your child theme's functions.php
 	}
 	add_filter( 'edd_auto_register_email_body', 'my_child_theme_edd_auto_register_email_body', 10, 4 );
 
+= Can you provide an example how to disable auto register?
+
+Add the following to your child theme's functions.php
+
+	/*
+	 * Disable auto register for specific products
+	 */
+	function my_child_theme_disable_auto_register() {
+		$cart_contents = edd_get_cart_contents();
+		if ( ! $cart_contents ) {
+			return;
+		}
+		foreach ( $cart_contents as $key => $item ) {
+			$items[] = $item['id'];
+		}
+		// List of download ids that require auto register
+		$items_for_auto_register = array( '21', '987' );
+		// If there are no downloads that require auto register then disable it.
+		if ( ! array_intersect( $items, $items_for_auto_register ) ) {
+			add_filter( 'edd_auto_register_disable', '__return_true', 11 );
+		}
+	}
+	add_action( 'init', 'my_child_theme_disable_auto_register', 11 );
+
 = How can I disable the email from sending to the customer? =
 
 There's an option under downloads &rarr; settings &rarr; extensions
@@ -107,26 +134,15 @@ There's an option under downloads &rarr; settings &rarr; extensions
 
 == Upgrade Notice ==
 
+== Changelog ==
+
 = 1.3.2 =
 * Fix: Correct compatibility with Easy Digital Downloads user verification process.
 
 = 1.3.1 =
-
 * Fix: Issue with customers being forced to log in
 
 = 1.3 =
-
-* Fix: Resolves compatibility issues with Easy Digital Downloads 2.1+
-* Fix: User accounts now created anytime a payment record is created, not just during checkout to resolve compatibility with some extensions
-* Fix: Dramatically simplified code base
-
-= 1.2.1 =
-* Fixes the activation check so it cannot be activated unless EDD is active
-
-== Changelog ==
-
-= 1.3 =
-
 * Fix: Resolves compatibility issues with Easy Digital Downloads 2.1+
 * Fix: User accounts now created anytime a payment record is created, not just during checkout to resolve compatibility with some extensions
 * Fix: Dramatically simplified code base
