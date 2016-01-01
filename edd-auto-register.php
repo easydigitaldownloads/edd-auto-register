@@ -151,7 +151,6 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			echo '<div class="error"><p>' . __( 'EDD Auto Register requires Easy Digital Downloads Version 2.3 or greater. Please update or install Easy Digital Downloads.', 'edd-auto-register' ) . '</p></div>';
 		}
 
-
 		/**
 		 * Loads the plugin language files
 		 *
@@ -184,7 +183,6 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			}
 		}
 
-
 		/**
 		 * Notifications
 		 * Sends the user an email with their logins details and also sends the site admin an email notifying them of a signup
@@ -211,12 +209,12 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			}
 
 			// user registration
-			if ( empty( $user_data['user_pass'] ) ) {
+			if ( empty( $user_data['user_pass'] || ! $user_email_disabled ) ) {
 				return;
 			}
 
 			// message
-			$message = $this->get_email_body_content( $user_data['first_name'], sanitize_user( $user_data['user_login'], true ), $user_data['user_pass'] );
+			$message = $this->get_email_body_content( $user, $user_data );
 
 			// subject line
 			$subject = apply_filters( 'edd_auto_register_email_subject', sprintf( __( '[%s] Your username and password', 'edd-auto-register' ), $blogname ) );
@@ -236,9 +234,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			$emails->__set( 'headers', $headers );
 
 			// Email the user
-			if ( ! $user_email_disabled ) {
-				$emails->send( $user_data['user_email'], $subject, $message );
-			}
+			$emails->send( $user_data['user_email'], $subject, $message );
 
 		}
 
@@ -248,16 +244,18 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 * @since 1.0
 		 * @return string $default_email_body Body of the email
 		 */
-		public function get_email_body_content( $first_name, $username, $password ) {
+		public function get_email_body_content( $user, $user_data ) {
+			$key = get_password_reset_key( $user );
 
 			// Email body
-			$default_email_body = __( "Dear", "edd-auto-register" ) . ' ' . $first_name . ",\n\n";
-			$default_email_body .= __( "Below are your login details:", "edd-auto-register" ) . "\n\n";
-			$default_email_body .= __( "Your Username:", "edd-auto-register" ) . ' ' . $username . "\n\n";
-			$default_email_body .= __( "Your Password:", "edd-auto-register" ) . ' ' . $password . "\n\n";
-			$default_email_body .= __( "Login:", "edd-auto-register" ) . ' ' . wp_login_url() . "\r\n";
+			$default_email_body = sprintf( __( 'Dear %s', 'edd-auto-register' ), $user_data['first_name'] ) . ",\n\n";
+			$default_email_body .= __( 'Below are your login details:', 'edd-auto-register' ) . "\n\n";
+			$default_email_body = sprintf( __( 'Your Username: %s', 'edd-auto-register' ), sanitize_user( $user_data['user_login'], true ) ) . "\r\n\r\n";
+			$default_email_body .= __('To set your password, visit the following address:') . "\r\n\r\n";
+			$default_email_body .= network_site_url( 'wp-login.php?action=rp&key=' . $key . '&login=' . rawurlencode( $user_data['user_login'] ), 'login' ) . "\r\n\r\n";
+			$default_email_body .= sprintf( __( 'Login: %s', 'edd-auto-register' ), wp_login_url() ) . "\r\n";
 
-			$default_email_body = apply_filters( 'edd_auto_register_email_body', $default_email_body, $first_name, $username, $password );
+			$default_email_body = apply_filters( 'edd_auto_register_email_body', $default_email_body,  $user_data['first_name'], sanitize_user( $user_data['user_login'], true ), $user_data['user_pass'] );
 
 			return $default_email_body;
 		}
