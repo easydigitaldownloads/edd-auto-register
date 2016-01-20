@@ -3,8 +3,8 @@ Contributors: sumobi, mordauk
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=EFUPMPEZPGW7L
 Tags: easy digital downloads, digital downloads, e-downloads, edd, sumobi, purchase, auto, register, registration, e-commerce
 Requires at least: 3.3
-Tested up to: 4.3
-Stable tag: 1.3.2
+Tested up to: 4.5
+Stable tag: 1.3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,6 +135,12 @@ There's an option under downloads &rarr; settings &rarr; extensions
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 1.3.3 =
+
+* Tweak: Added support for other extensions to run the registration process before a payment is recorded
+* Fix: Removed unused global variables
+* Fix: Properly force Guest Checkout to be enabled
 
 = 1.3.2 =
 * Fix: Correct compatibility with Easy Digital Downloads user verification process.
