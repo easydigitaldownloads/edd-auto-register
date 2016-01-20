@@ -281,61 +281,39 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		}
 
 		/**
-		 * Maybe create a user when payment is created
+		 * When a payment is inserted, possibly registers a user
+		 *
+		 * If this is the first purchase, disables the EDD Core user verification system
 		 *
 		 * @since 1.3
 		 */
 		public function maybe_insert_user( $payment_id, $payment_data ) {
 
-			// User account already associated
-			if ( $payment_data['user_info']['id'] > 0 ) {
-				return;
-			}
+			// It's possible that a extension (like recurring) has already auto-inserted a user, let's verify
+			if ( ! is_user_logged_in() ) {
 
-			// User account already exists
-			if ( get_user_by( 'email', $payment_data['user_info']['email'] ) ) {
-				return;
-			}
+				$customer    = new EDD_Customer( $payment_data['user_info']['email'] );
+				$payment_ids = explode( ',', $customer->payment_ids );
 
-			$user_name = sanitize_user( $payment_data['user_info']['email'] );
+				if ( is_array( $payment_ids ) && ! empty( $payment_ids ) ) {
 
-			// Username already exists
-			if ( username_exists( $user_name ) ) {
-				return;
-			}
+					$payment_ids = array_map( 'absint', $payment_ids );
 
-			// Okay we need to create a user and possibly log them in
+					// If the payment inserted is the only payment, we don't need verification
+					if ( 1 === count( $payment_ids ) && in_array( $payment_id, $payment_ids ) ) {
+						remove_action( 'user_register', 'edd_connect_existing_customer_to_new_user', 10, 1 );
+						remove_action( 'user_register', 'edd_add_past_purchases_to_new_user', 10, 1 );
+					}
 
-			$user_args = apply_filters( 'edd_auto_register_insert_user_args', array(
-				'user_login'      => $user_name,
-				'user_pass'       => wp_generate_password( 32 ),
-				'user_email'      => $payment_data['user_info']['email'],
-				'first_name'      => $payment_data['user_info']['first_name'],
-				'last_name'       => $payment_data['user_info']['last_name'],
-				'user_registered' => date( 'Y-m-d H:i:s' ),
-				'role'            => get_option( 'default_role' )
-			), $payment_id, $payment_data );
-
-			$customer    = new EDD_Customer( $payment_data['user_info']['email'] );
-			$payment_ids = explode( ',', $customer->payment_ids );
-
-			if ( is_array( $payment_ids ) && ! empty( $payment_ids ) ) {
-
-				$payment_ids = array_map( 'absint', $payment_ids );
-
-				// If the payment inserted is the only payment, we don't need verification
-				if ( 1 === count( $payment_ids ) && in_array( $payment_id, $payment_ids ) ) {
-					remove_action( 'user_register', 'edd_connect_existing_customer_to_new_user', 10, 1 );
-					remove_action( 'user_register', 'edd_add_past_purchases_to_new_user', 10, 1 );
 				}
 
+				$user_id = $this->create_user( $payment_data, $payment_id );
+			} else {
+				$user_id = get_current_user_id();
 			}
 
-			// Insert new user
-			$user_id = wp_insert_user( $user_args );
-
 			// Validate inserted user
-			if ( is_wp_error( $user_id ) ) {
+			if ( is_wp_error( $user_id ) || empty( $user_id ) ) {
 				return;
 			}
 
@@ -346,18 +324,70 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			edd_update_payment_meta( $payment_id, '_edd_payment_user_id', $user_id );
 			edd_update_payment_meta( $payment_id, '_edd_payment_meta', $payment_meta );
 
-			$customer->update( array( 'user_id' => $user_id ) );
+		}
 
-			// Allow themes and plugins to hook
-			do_action( 'edd_auto_register_insert_user', $user_id, $user_args, $payment_id );
+		/**
+		 * Processes the supplied payment data to possibly register a user
+		 *
+		 * @since  1.3.3
+		 * @param  array   $payment_data The Payment data
+		 * @param  int     $payment_id   The payment ID
+		 * @return int|WP_Error          The User ID created or an instance of WP_Error if the insert fails
+		 */
+		public function create_user( $payment_data = array(), $payment_id = 0 ) {
 
-			if( function_exists( 'did_action' ) && did_action( 'edd_purchase' ) ) {
-
-				// Only log user in if processing checkout screen
-				edd_log_user_in( $user_id, $user_args['user_login'], $user_args['user_pass'] );
-
+			// User account already associated
+			if ( $payment_data['user_info']['id'] > 0 ) {
+				return false;
 			}
 
+			// User account already exists
+			if ( get_user_by( 'email', $payment_data['user_info']['email'] ) ) {
+				return false;
+			}
+
+			$user_name = sanitize_user( $payment_data['user_info']['email'] );
+
+			// Username already exists
+			if ( username_exists( $user_name ) ) {
+				return false;
+			}
+
+			// Okay we need to create a user and possibly log them in
+
+			// Since this filter existed before, we must send in a $payment_id, which we default to false if none is supplied
+			$user_args = apply_filters( 'edd_auto_register_insert_user_args', array(
+				'user_login'      => $user_name,
+				'user_pass'       => wp_generate_password( 32 ),
+				'user_email'      => $payment_data['user_info']['email'],
+				'first_name'      => $payment_data['user_info']['first_name'],
+				'last_name'       => $payment_data['user_info']['last_name'],
+				'user_registered' => date( 'Y-m-d H:i:s' ),
+				'role'            => get_option( 'default_role' )
+			), $payment_id, $payment_data );
+
+			// Insert new user
+			$user_id = wp_insert_user( $user_args );
+
+			if ( ! is_wp_error( $user_id ) ) {
+
+				// Allow themes and plugins to hook
+				do_action( 'edd_auto_register_insert_user', $user_id, $user_args, $payment_id );
+
+				$maybe_login_user = function_exists( 'did_action' ) && did_action( 'edd_purchase' );
+				$maybe_login_user = apply_filters( 'edd_auto_register_login_user', $maybe_login_user );
+
+				if ( true === $maybe_login_user ) {
+
+					edd_log_user_in( $user_id, $user_args['user_login'], $user_args['user_pass'] );
+
+				}
+
+				$customer    = new EDD_Customer( $payment_data['user_info']['email'] );
+				$customer->update( array( 'user_id' => $user_id ) );
+			}
+
+			return $user_id;
 		}
 
 		/**
