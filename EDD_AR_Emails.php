@@ -119,8 +119,8 @@ class EDD_AR_Emails {
 	 * @since 1.4
 	 * @return bool If it is the first puchase then return true else false
 	 */
-	public function is_first_purchase() {
-		$user = wp_get_current_user();
+	public function is_first_purchase( $payment_id, $tag ) {
+		$user = $this-get_user( $payment_id );
 		$customer = new EDD_Customer( $user->ID, true );
 		if( $customer->purchase_count < 2 ) {
 			return true;
@@ -135,10 +135,10 @@ class EDD_AR_Emails {
 	 * @since 1.4
 	 * @return string Return link to set the password
 	 */
-	public function reset_password_link_tag() {
+	public function reset_password_link_tag( $payment_id, $tag ) {
 
 		if( $this->is_first_purchase() ) {
-			$user = wp_get_current_user();
+			$user = $this-get_user( $payment_id );
 			$key = get_password_reset_key( $user );
 			return'<a href="' . network_site_url( 'wp-login.php?action=rp&key=' . $key . '&login=' . rawurlencode( $user->user_login ), 'login' ) . '">' . __( 'Set your password', 'edd-auto-register' ) . '</a>';
 		} else {
@@ -161,6 +161,21 @@ class EDD_AR_Emails {
 			return;
 		}
 
+	}
+
+	/**
+	 * Fetch user Object
+	 *
+	 * @since 1.4
+	 * @param int $payment_id Payment ID
+	 * @return WP_User|false WP_User object on success, false on failure.
+	 */
+	public function get_user( $payment_id = 0 ) {
+		$user_id = edd_get_payment_user_id( $payment_id );
+		if ( $user_id ) {
+			return get_userdata( $user_id );
+		}
+		return wp_get_current_user();
 	}
 
 }
