@@ -308,12 +308,19 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 				}
 
 				$user_id = $this->create_user( $payment_data, $payment_id );
+
 			} else {
-				$user_id = get_current_user_id();
+
+				if( function_exists( 'did_action' ) && ! did_action( 'edd_create_payment' ) ) {
+
+					// Don't use the current user ID when creating payments through Manual Purchases
+					$user_id = get_current_user_id();
+	
+				}
 			}
 
 			// Validate inserted user
-			if ( is_wp_error( $user_id ) || empty( $user_id ) ) {
+			if ( empty( $user_id ) || is_wp_error( $user_id ) ) {
 				return;
 			}
 
