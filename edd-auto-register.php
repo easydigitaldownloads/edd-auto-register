@@ -315,7 +315,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 
 					// Don't use the current user ID when creating payments through Manual Purchases
 					$user_id = get_current_user_id();
-	
+
 				}
 			}
 
@@ -381,7 +381,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 				// Allow themes and plugins to hook
 				do_action( 'edd_auto_register_insert_user', $user_id, $user_args, $payment_id );
 
-				$maybe_login_user = function_exists( 'did_action' ) && ( did_action( 'edd_purchase' ) || did_action( 'edd_straight_to_gateway' ) );
+				$maybe_login_user = function_exists( 'did_action' ) && ( did_action( 'edd_purchase' ) || did_action( 'edd_straight_to_gateway' ) || did_action( 'edd_free_download_process' ) );
 				$maybe_login_user = apply_filters( 'edd_auto_register_login_user', $maybe_login_user );
 
 				if ( true === $maybe_login_user ) {
