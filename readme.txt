@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: easy digital downloads, digital downloads, e-downloads, edd, sumobi, purchase, auto, register, registration, e-commerce
 Requires at least: 3.3
 Tested up to: 4.6
-Stable tag: 1.3.5
+Stable tag: 1.3.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,6 +135,10 @@ There's an option under downloads &rarr; settings &rarr; extensions
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 1.3.6 =
+
+* Updated plugin authors
 
 = 1.3.5 =
 * Fix: Users not automatically logged in when using the Free Downloads extension
