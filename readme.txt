@@ -3,8 +3,8 @@ Contributors: easydigitaldownloads, sumobi, mordauk, cklosows, mindctrl
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=EFUPMPEZPGW7L
 Tags: easy digital downloads, digital downloads, e-downloads, edd, sumobi, purchase, auto, register, registration, e-commerce
 Requires at least: 3.3
-Tested up to: 4.6
-Stable tag: 1.3.6
+Tested up to: 4.7
+Stable tag: 1.3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,6 +135,10 @@ There's an option under downloads &rarr; settings &rarr; extensions
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 1.3.7 =
+
+* Fix: Ensure user ID is set on license keys properly
 
 = 1.3.6 =
 
