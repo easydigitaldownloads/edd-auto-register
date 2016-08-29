@@ -1,12 +1,12 @@
 <?php
 /*
 Plugin Name: Easy Digital Downloads - Auto Register
-Plugin URI: http://sumobi.com/shop/edd-auto-register/
+Plugin URI: https://easydigitaldownloads.com/downloads/auto-register/
 Description: Automatically creates a WP user account at checkout, based on customer's email address.
 Version: 1.3.8
 Author: Andrew Munro, Pippin Williamson, and Chris Klosowski
 Contributors: sumobi, mordauk, cklosows, mindctrl
-Author URI: http://sumobi.com/
+Author URI: https://easydigitaldownloads.com/
 Text Domain: edd-auto-register
 Domain Path: languages
 License: GPL-2.0+
@@ -117,9 +117,6 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			if ( edd_no_guest_checkout() || apply_filters( 'edd_auto_register_disable', false ) ) {
 				return;
 			}
-
-			// plugin meta
-			add_filter( 'plugin_row_meta', array( $this, 'plugin_meta' ), 10, 2 );
 
 			// text domain
 			add_action( 'after_setup_theme', array( $this, 'load_textdomain' ) );
@@ -453,27 +450,6 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			}
 
 			return $value;
-		}
-
-		/**
-		 * Modify plugin metalinks
-		 *
-		 * @access      public
-		 * @since       1.0.0
-		 * @param array   $links The current links array
-		 * @param string  $file  A specific plugin table entry
-		 * @return      array $links The modified links array
-		 */
-		public function plugin_meta( $links, $file ) {
-			if ( $file == plugin_basename( __FILE__ ) ) {
-				$plugins_link = array(
-					'<a title="View more plugins for Easy Digital Downloads by Sumobi" href="https://easydigitaldownloads.com/blog/author/andrewmunro/?ref=166" target="_blank">' . __( 'Author\'s EDD plugins', 'edd-auto-register' ) . '</a>'
-				);
-
-				$links = array_merge( $links, $plugins_link );
-			}
-
-			return $links;
 		}
 
 	}
