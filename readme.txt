@@ -14,8 +14,6 @@ Automatically creates a WP user account at checkout, based on customer's email a
 
 This plugin now requires [Easy Digital Downloads](http://wordpress.org/extend/plugins/easy-digital-downloads/ "Easy Digital Downloads") v2.3 or greater.
 
-[View the live demo](http://edd-auto-register.sumobithemes.com/downloads/test-download/ "Live Demo")
-
 Once activated, EDD Auto Register will create a WordPress user account for your customer at checkout, without the need for the customer to enter any additional information. This eliminates the need for the default EDD registration form, and drastically reduces the time it takes your customers to complete their purchase.
 
 Guest checkout is required so the plugin overrides the setting. The registration form is hidden on checkout while the plugin is active.
@@ -24,21 +22,7 @@ There are various filters available for developers, see the FAQ tab for more inf
 
 **More add-ons for Easy Digital Downloads**
 
-You can find more add-ons (both free and commercial) from [Easy Digital Downloads' website](https://easydigitaldownloads.com/extensions/?ref=166 "Easy Digital Downloads")
-
-**Free theme for Easy Digital Downloads**
-
-[http://sumobi.com/shop/shop-front/](http://sumobi.com/shop/shop-front/ "Shop Front")
-
-Shop Front was designed to be simple, responsive and lightweight. It has only the bare essentials, making it the perfect starting point for your next digital e-commerce store. It’s also easily extensible with a growing collection of add-ons to enhance the functionality and styling.
-
-**Stay up to date**
-
-*Become a fan on Facebook*
-[http://www.facebook.com/sumobicom](http://www.facebook.com/sumobicom "Facebook")
-
-*Follow me on Twitter*
-[http://twitter.com/sumobi_](http://twitter.com/sumobi_ "Twitter")
+You can find more add-ons (both free and commercial) from [Easy Digital Downloads' website](https://easydigitaldownloads.com/downloads/ "Easy Digital Downloads")
 
 == Installation ==
 
