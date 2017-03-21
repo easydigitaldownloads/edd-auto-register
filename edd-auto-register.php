@@ -129,6 +129,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 
 			// create user when purchase is created
 			add_action( 'edd_insert_payment', array( $this, 'maybe_insert_user' ), 10, 2 );
+			add_action( 'edd_payment_saved', array( $this, 'create_user_during_import' ), 10, 2 );
 
 			// stop EDD from sending new user notification, we want to customize this a bit
 			remove_action( 'edd_insert_user', 'edd_new_user_notification', 10, 2 );
@@ -304,7 +305,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 
 				}
 
-				$user_id = $this->create_user( $payment_data, $payment_id );
+				$user_id = $this->create_user( array(), $payment_id );
 
 			} else {
 
@@ -314,6 +315,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 					$user_id = get_current_user_id();
 
 				}
+
 			}
 
 			// Validate inserted user
@@ -344,26 +346,46 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		}
 
 		/**
+		 * Creates a user account during payment import
+		 *
+		 * @since  1.4
+		 * @param  int     $payment_id   The payment ID
+		 * @param  object  $payment_id   The EDD_Payment object
+		 * @return int|WP_Error          The User ID created or an instance of WP_Error if the insert fails
+		 */
+		public function create_user_during_import( $payment_id = 0, $payment ) {
+
+			if( ! did_action( 'edd_batch_import_class_include' ) ) {
+				return;
+			}
+
+			$this->create_user( array(), $payment_id );
+
+		}
+
+		/**
 		 * Processes the supplied payment data to possibly register a user
 		 *
 		 * @since  1.3.3
-		 * @param  array   $payment_data The Payment data
+		 * @param  array   $deprecated   The Payment data (deprecated in 1.4)
 		 * @param  int     $payment_id   The payment ID
 		 * @return int|WP_Error          The User ID created or an instance of WP_Error if the insert fails
 		 */
-		public function create_user( $payment_data = array(), $payment_id = 0 ) {
+		public function create_user( $deprecated = array(), $payment_id = 0 ) {
+
+			$payment = new EDD_Payment( $payment_id );
 
 			// User account already associated
-			if ( $payment_data['user_info']['id'] > 0 ) {
+			if ( $payment->user_id > 0 ) {
 				return false;
 			}
 
 			// User account already exists
-			if ( get_user_by( 'email', $payment_data['user_info']['email'] ) ) {
+			if ( get_user_by( 'email', $payment->email ) ) {
 				return false;
 			}
 
-			$user_name = sanitize_user( $payment_data['user_info']['email'] );
+			$user_name = sanitize_user( $payment->email );
 
 			// Username already exists
 			if ( username_exists( $user_name ) ) {
@@ -376,12 +398,12 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			$user_args = apply_filters( 'edd_auto_register_insert_user_args', array(
 				'user_login'      => $user_name,
 				'user_pass'       => wp_generate_password( 32 ),
-				'user_email'      => $payment_data['user_info']['email'],
-				'first_name'      => $payment_data['user_info']['first_name'],
-				'last_name'       => $payment_data['user_info']['last_name'],
+				'user_email'      => $payment->email,
+				'first_name'      => $payment->first_name,
+				'last_name'       => $payment->last_name,
 				'user_registered' => date( 'Y-m-d H:i:s' ),
 				'role'            => get_option( 'default_role' )
-			), $payment_id, $payment_data );
+			), $payment_id, $deprecated = array() );
 
 			// Insert new user
 			$user_id = wp_insert_user( $user_args );
@@ -400,7 +422,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 
 				}
 
-				$customer    = new EDD_Customer( $payment_data['user_info']['email'] );
+				$customer    = new EDD_Customer( $payment->email );
 				$customer->update( array( 'user_id' => $user_id ) );
 			}
 
