@@ -364,7 +364,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			if ( $user ) {
 
 				if( is_multisite() ) {
-					add_user_to_blog( get_current_blog_id(), $user->ID );
+					add_user_to_blog( get_current_blog_id(), $user->ID, get_option( 'default_role' ) );
 				}
 
 				return false;
