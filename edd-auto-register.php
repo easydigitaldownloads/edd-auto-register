@@ -3,7 +3,7 @@
 Plugin Name: Easy Digital Downloads - Auto Register
 Plugin URI: https://easydigitaldownloads.com/downloads/auto-register/
 Description: Automatically creates a WP user account at checkout, based on customer's email address.
-Version: 1.3.8
+Version: 1.3.9
 Author: Andrew Munro, Pippin Williamson, and Chris Klosowski
 Contributors: sumobi, mordauk, cklosows, mindctrl
 Author URI: https://easydigitaldownloads.com/
@@ -382,6 +382,10 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 
 			// User account already exists
 			if ( get_user_by( 'email', $payment->email ) ) {
+				if ( is_multisite() ) {
+					add_user_to_blog( get_current_blog_id(), $user->ID, get_option( 'default_role' ) );
+				}
+
 				return false;
 			}
 
