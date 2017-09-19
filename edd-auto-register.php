@@ -393,6 +393,9 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			// Insert new user
 			$user_id = wp_insert_user( $user_args );
 
+			$address = isset( $payment_data['user_info']['address'] ) ? $payment_data['user_info']['address'] : array();
+			update_user_meta( $user_id, '_edd_user_address', $address );
+
 			if ( ! is_wp_error( $user_id ) ) {
 
 				// Allow themes and plugins to hook
