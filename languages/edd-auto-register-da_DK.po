@@ -1,0 +1,104 @@
+# Copyright (C) 2015 Andrew Munro, Sumobi
+# This file is distributed under the GPL-2.0+.
+msgid ""
+msgstr ""
+"Project-Id-Version: Easy Digital Downloads - Auto Register\n"
+"Report-Msgid-Bugs-To: Andrew Munro <andrew@sumobi.com>\n"
+"POT-Creation-Date: 2015-08-04 15:48+1200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2018-01-14 13:45+0100\n"
+"Language-Team: Easy Digital Downloads <support@easydigitaldownloads.com>\n"
+"X-Generator: Poedit 2.0.5\n"
+"X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;"
+"_n_noop:1,2;_nx_noop:1,2,3c;esc_attr__;esc_html__;esc_attr_e;esc_html_e;"
+"esc_attr_x:1,2c;esc_html_x:1,2c\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: ..\n"
+"X-Textdomain-Support: yes\n"
+"Last-Translator: Finn Sommer Jensen <f.sommer.jensen@gmail.com>\n"
+"Language: da_DK\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: edd-auto-register.php:150
+msgid ""
+"EDD Auto Register requires Easy Digital Downloads Version 2.3 or greater. "
+"Please update or install Easy Digital Downloads."
+msgstr ""
+"EDD Auto kræver Easy Digital Downloads version 2.3 eller nyere. Opgrader "
+"venligst eller installer Easy Digital Downloads."
+
+#: edd-auto-register.php:205
+#, php-format
+msgid "New user registration on your site %s:"
+msgstr "Ny bruger registrering på dit websted %s:"
+
+#: edd-auto-register.php:206
+#, php-format
+msgid "Username: %s"
+msgstr "Brugernavn: %s"
+
+#: edd-auto-register.php:207
+#, php-format
+msgid "E-mail: %s"
+msgstr "E-mail: %s"
+
+#: edd-auto-register.php:210
+#, php-format
+msgid "[%s] New User Registration"
+msgstr "[%s] Ny bruger registrering"
+
+#: edd-auto-register.php:222
+#, php-format
+msgid "[%s] Your username and password"
+msgstr "[%s] Dit brugernavn og din adgangskode"
+
+#: edd-auto-register.php:254
+msgid "Dear"
+msgstr "Kære"
+
+#: edd-auto-register.php:255
+msgid "Below are your login details:"
+msgstr "Nedenfor er dine log ind oplysninger:"
+
+#: edd-auto-register.php:256
+msgid "Your Username:"
+msgstr "Dit brugernavn:"
+
+#: edd-auto-register.php:257
+msgid "Your Password:"
+msgstr "Din adgangskode:"
+
+#: edd-auto-register.php:258
+msgid "Login:"
+msgstr "Log ind:"
+
+#: edd-auto-register.php:356
+msgid "Auto Register"
+msgstr "Auto Registrer"
+
+#: edd-auto-register.php:361
+msgid "Disable User Email"
+msgstr "Deaktivere bruger e-mail"
+
+#: edd-auto-register.php:362
+msgid "Disables the email sent to the user that contains login details"
+msgstr ""
+"Deaktivere e-mailen der sendes til brugeren og som indeholder log ind "
+"oplysninger"
+
+#: edd-auto-register.php:367
+msgid "Disable Admin Notification"
+msgstr "Deaktiver admin meddelser"
+
+#: edd-auto-register.php:368
+msgid "Disables the new user registration email sent to the admin"
+msgstr ""
+"Deaktiver e-mailen der sendes til administratoren når en ny bruger er "
+"registreret"
+
+#: edd-auto-register.php:402
+msgid "Author's EDD plugins"
+msgstr "Forfatterens EDD plugins"
