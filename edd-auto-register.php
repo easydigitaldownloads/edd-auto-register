@@ -128,7 +128,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			// can the customer checkout?
 			add_filter( 'edd_can_checkout', array( $this, 'can_checkout' ) );
 
-			edd_debug_log( 'EDDAR maybe_insert_user is hooked to edd_insert_payment...' );
+			edd_debug_log( 'EDDAR maybe_insert_user is hooked to edd_payment_saved...' );
 
 			// create user when purchase is created
 			add_action( 'edd_payment_saved', array( $this, 'maybe_insert_user' ), 10, 2 );
@@ -361,7 +361,8 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			edd_debug_log( 'EDDAR: create_user running...' );
 
 			// Make sure the payment has been proerly created first
-			if ( ! isset( $payment->id ) ) {
+			if ( ! isset( $payment->ID ) ) {
+				edd_debug_log( 'EDDAR: $payment ID did not exist: ' . print_r( $payment, true ) );
 				return false;
 			}
 
