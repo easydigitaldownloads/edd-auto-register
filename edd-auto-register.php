@@ -360,6 +360,11 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 
 			edd_debug_log( 'EDDAR: create_user running...' );
 
+			// Make sure the payment has been proerly created first
+			if ( ! isset( $payment->id ) ) {
+				return false;
+			}
+
 			// User account already associated
 			if ( $payment->user_id > 0 ) {
 				edd_debug_log( 'EDDAR: User account already exists' );
