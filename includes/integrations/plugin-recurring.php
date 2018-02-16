@@ -10,7 +10,7 @@
 if( !defined( 'ABSPATH' ) ) exit;
 
 /**
- * Integrates EDD All Access with the EDD Software Licensing extension
+ * Integrates EDD Auto Register with the EDD Software Licensing extension
  *
  * @since 1.4.0
  */
