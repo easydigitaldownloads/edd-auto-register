@@ -37,11 +37,6 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		private static $instance;
 
 		/**
-		* @var EDD_Auto_Register_Recurring
-		*/
-		public static $edd_recurring;
-
-		/**
 		* @var EDD_Auto_Register_Software_Licensing
 		*/
 		public static $edd_software_licensing;
@@ -63,7 +58,6 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 				self::$instance->includes();
 
 				// Set up integrated plugins
-				self::$edd_recurring = new EDD_Auto_Register_Recurring_Payments();
 				self::$edd_software_licensing = new EDD_Auto_Register_Software_Licensing();
 			}
 
