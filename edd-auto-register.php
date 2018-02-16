@@ -361,7 +361,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			edd_debug_log( 'EDDAR: create_user running...' );
 
 			// Make sure the payment has been proerly created first
-			if ( ! isset( $payment->ID ) ) {
+			if ( empty( $payment->ID ) ) {
 				edd_debug_log( 'EDDAR: $payment ID did not exist: ' . print_r( $payment, true ) );
 				return false;
 			}
