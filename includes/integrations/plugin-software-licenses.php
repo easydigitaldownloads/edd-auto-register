@@ -2,7 +2,7 @@
 /**
  * Integration functions to make Auto Register compatible with EDD Software Licenses
  *
- * @package     EDD\EDD_Auto_Register\Functions
+ * @package     EDD\EDD_Auto_Register\EDD_Auto_Register_Software_Licensing
  * @since       1.4
  */
 
@@ -36,7 +36,7 @@ class EDD_Auto_Register_Software_Licensing {
 	 *
 	 * @since       1.4
 	 */
-	public function assign_user_to_purchased_licenses( $new_user_id, $payment){
+	public function assign_user_to_purchased_licenses( $new_user_id, $payment ){
 
 		$licenses = edd_software_licensing()->get_licenses_of_purchase( $payment->ID );
 
