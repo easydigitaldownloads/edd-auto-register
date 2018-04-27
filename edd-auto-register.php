@@ -37,11 +37,6 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		private static $instance;
 
 		/**
-		* @var EDD_Auto_Register_Software_Licensing
-		*/
-		public static $edd_software_licensing;
-
-		/**
 		 * Main Instance
 		 *
 		 * Ensures that only one instance exists in memory at any one
@@ -55,10 +50,6 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 				self::$instance = new EDD_Auto_Register;
 				self::$instance->setup_globals();
 				self::$instance->hooks();
-				self::$instance->includes();
-
-				// Set up integrated plugins
-				self::$edd_software_licensing = new EDD_Auto_Register_Software_Licensing();
 			}
 
 			return self::$instance;
@@ -73,23 +64,6 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		private function __construct() {
 			edd_debug_log( 'EDDAR EDD_Auto_Register class running...' );
 			self::$instance = $this;
-
-		}
-
-		/**
-		* Include necessary files
-		*
-		* @access      private
-		* @since       1.4
-		* @return      void
-		*/
-		private function includes() {
-
-		  // Integration functions to make this work with EDD Recurring
-		  require_once $this->plugin_dir . 'includes/integrations/plugin-recurring.php';
-
-		  // Integration with EDD Software Licensing
-		  require_once $this->plugin_dir . 'includes/integrations/plugin-software-licenses.php';
 
 		}
 
@@ -387,7 +361,18 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			edd_update_payment_meta( $payment_id, '_edd_payment_user_id', $user_id );
 			edd_update_payment_meta( $payment_id, '_edd_payment_meta', $payment_meta );
 
-			do_action( 'edd_auto_register_new_user_created', $user_id, $payment );
+			if ( class_exists( 'EDD_Software_Licensing' ) ) {
+-
+-				$licenses = edd_software_licensing()->get_licenses_of_purchase( $payment_id );
+-
+-				if( $licenses ) {
+-					foreach ( $licenses as $license ) {
+-
+-						update_post_meta( $license->ID, '_edd_sl_user_id', $user_id );
+-
+-					}
+-				}
+-			}
 
 		}
 
