@@ -290,8 +290,14 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		public function maybe_insert_user( $payment_id, $payment ) {
 
 			edd_debug_log( 'EDDAR: maybe_insert_user running...' );
+			edd_debug_log( 'Payment: ' . print_r( $payment, true ) );
 
-			// It's possible that a extension (like recurring) has already auto-inserted a user, let's verify
+			// This function only creates users using a Payment. If the payment ID is empty, we can't do that.
+			if ( empty( $payment->ID ) ) {
+				return false;
+			}
+
+			// If the user is not logged in
 			if ( ! is_user_logged_in() ) {
 
 				$customer    = new EDD_Customer( $payment->email );
@@ -309,7 +315,29 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 
 				}
 
-				$user_id = $this->create_user( $payment, $payment_id );
+				// We will manually re-build the purchase_data array the way that create_user expects it.
+				// We have to do it this way, instead of passing a payment ID, because a payment ID may not yet exist, as is the case for recurring.
+				$purchase_data = array(
+					'price'        => $payment->total,
+					'date'         => $payment->date,
+					'user_email'   => $payment->email,
+					'purchase_key' => $payment->key,
+					'currency'     => $payment->currency,
+					'downloads'    => $payment->downloads,
+					'user_info' => array(
+						'id'         => $payment->user_id,
+						'email'      => $payment->email,
+						'first_name' => $payment->first_name,
+						'last_name'  => $payment->last_name,
+						'discount'   => $payment->discounts,
+						'address'    => $payment->address,
+					),
+					'cart_details' => $payment->cart_details,
+					'status'       => $payment->status,
+					'fees'         => $payment->fees,
+				);
+
+				$this->create_user( $purchase_data );
 
 			} else {
 
@@ -352,45 +380,26 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 * Processes the supplied payment data to possibly register a user
 		 *
 		 * @since  1.3.3
-		 * @param  array   $payment      The payment object
+		 * @param  array   $payment_data The Payment data
 		 * @param  int     $payment_id   The payment ID
 		 * @return int|WP_Error          The User ID created or an instance of WP_Error if the insert fails
 		 */
-		public function create_user( $payment, $payment_id = 0 ) {
-
-			edd_debug_log( 'EDDAR: create_user running...' );
-
-			// Make sure the payment has been proerly created first
-			if ( empty( $payment->ID ) ) {
-				edd_debug_log( 'EDDAR: $payment ID did not exist: ' . print_r( $payment, true ) );
-				return false;
-			}
+		public function create_user( $payment_data = array(), $payment_id = 0 ) {
 
 			// User account already associated
-			if ( $payment->user_id > 0 ) {
-				edd_debug_log( 'EDDAR: User account already exists' );
+			if ( $payment_data['user_info']['id'] > 0 ) {
 				return false;
 			}
-
-			$user = get_user_by( 'email', $payment->email );
 
 			// User account already exists
-			if ( $user ) {
-
-				if( is_multisite() ) {
-					add_user_to_blog( get_current_blog_id(), $user->ID, get_option( 'default_role' ) );
-				}
-
-				edd_debug_log( 'EDDAR: User account already exists' );
-
+			if ( get_user_by( 'email', $payment_data['user_info']['email'] ) ) {
 				return false;
 			}
 
-			$user_name = sanitize_user( $payment->email );
+			$user_name = sanitize_user( $payment_data['user_info']['email'] );
 
 			// Username already exists
 			if ( username_exists( $user_name ) ) {
-				edd_debug_log( 'EDDAR: Username already exists' );
 				return false;
 			}
 
@@ -400,14 +409,12 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			$user_args = apply_filters( 'edd_auto_register_insert_user_args', array(
 				'user_login'      => $user_name,
 				'user_pass'       => wp_generate_password( 32 ),
-				'user_email'      => $payment->email,
-				'first_name'      => $payment->first_name,
-				'last_name'       => $payment->last_name,
+				'user_email'      => $payment_data['user_info']['email'],
+				'first_name'      => $payment_data['user_info']['first_name'],
+				'last_name'       => $payment_data['user_info']['last_name'],
 				'user_registered' => date( 'Y-m-d H:i:s' ),
 				'role'            => get_option( 'default_role' )
-			), $payment_id, $payment );
-
-			edd_debug_log( 'EDDAR: inserting new user' );
+			), $payment_id, $payment_data );
 
 			// Insert new user
 			$user_id = wp_insert_user( $user_args );
@@ -426,12 +433,13 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 
 				}
 
-				$customer    = new EDD_Customer( $payment->email );
+				$customer    = new EDD_Customer( $payment_data['user_info']['email'] );
 				$customer->update( array( 'user_id' => $user_id ) );
 			}
 
 			return $user_id;
 		}
+
 
 		/**
 		 * Settings
