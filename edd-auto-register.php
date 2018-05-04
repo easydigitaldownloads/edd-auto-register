@@ -62,7 +62,6 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 * @access private
 		 */
 		private function __construct() {
-			edd_debug_log( 'EDDAR EDD_Auto_Register class running...' );
 			self::$instance = $this;
 
 		}
@@ -107,6 +106,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		private function hooks() {
 
 			if ( ! class_exists( 'EDD_Customer' ) ) {
+				edd_debug_log( 'Auto Register: Not loaded, EDD_Customer class is not available.' );
 				add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 				return;
 			}
@@ -127,8 +127,6 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 
 			// can the customer checkout?
 			add_filter( 'edd_can_checkout', array( $this, 'can_checkout' ) );
-
-			edd_debug_log( 'EDDAR maybe_insert_user is hooked to edd_payment_saved...' );
 
 			// create user when purchase is created
 			add_action( 'edd_payment_saved', array( $this, 'maybe_insert_user' ), 10, 2 );
