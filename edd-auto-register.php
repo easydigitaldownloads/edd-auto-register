@@ -366,7 +366,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 				if( $licenses ) {
 					foreach ( $licenses as $license ) {
 
-						update_post_meta( $license->ID, '_edd_sl_user_id', $user_id );
+						$license->update_meta( '_edd_sl_user_id', $user_id );
 
 					}
 				}
