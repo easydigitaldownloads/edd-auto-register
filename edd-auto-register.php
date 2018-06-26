@@ -359,19 +359,6 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			edd_update_payment_meta( $payment_id, '_edd_payment_user_id', $user_id );
 			edd_update_payment_meta( $payment_id, '_edd_payment_meta', $payment_meta );
 
-			if ( class_exists( 'EDD_Software_Licensing' ) ) {
-
-				$licenses = edd_software_licensing()->get_licenses_of_purchase( $payment_id );
-
-				if( $licenses ) {
-					foreach ( $licenses as $license ) {
-
-						$license->update_meta( '_edd_sl_user_id', $user_id );
-
-					}
-				}
-			}
-
 		}
 
 		/**
