@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: easy digital downloads, digital downloads, e-downloads, edd, sumobi, purchase, auto, register, registration, e-commerce
 Requires at least: 3.3
 Tested up to: 4.9
-Stable tag: 1.3.10
+Stable tag: 1.3.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -119,6 +119,14 @@ There's an option under downloads &rarr; settings &rarr; extensions
 == Upgrade Notice ==
 
 == Changelog ==
+
+= Version 1.3.11, July 26, 2019 =
+
+* Fix: Fixed integration issue with Recurring Payments where payments were being prevented.
+* New: Some EDD 3.0 compatibility improvements.
+* New: Improved integration with Software Licensing by using recommended methods.
+* New: Improved some debugging assistance code.
+* New: Improved requiring EDD core's existence if Auto Register installed without it.
 
 = Version 1.3.10, February 16, 2018 =
 

@@ -1,17 +1,16 @@
 <?php
-/*
-Plugin Name: Easy Digital Downloads - Auto Register
-Plugin URI: https://easydigitaldownloads.com/downloads/auto-register/
-Description: Automatically creates a WP user account at checkout, based on customer's email address.
-Version: 1.3.10
-Author: Andrew Munro, Pippin Williamson, and Chris Klosowski
-Contributors: sumobi, mordauk, cklosows, mindctrl
-Author URI: https://easydigitaldownloads.com/
-Text Domain: edd-auto-register
-Domain Path: languages
-License: GPL-2.0+
-License URI: http://www.opensource.org/licenses/gpl-license.php
-*/
+/**
+ * Plugin Name: Easy Digital Downloads - Auto Register
+ * Plugin URI:  https://easydigitaldownloads.com/downloads/auto-register/
+ * Description: Automatically creates a WP user account at checkout, based on customer's email address.
+ * Version:     1.3.11
+ * Author:      Sandhills Development, LLC
+ * Author URI:  https://sandhillsdev.com
+ * Text Domain: edd-auto-register
+ * Domain Path: languages
+ * License:     GPL-2.0+
+ * License URI: http://www.opensource.org/licenses/gpl-license.php
+ */
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
@@ -86,7 +85,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 */
 		private function setup_globals() {
 
-			$this->version    = '1.3.5';
+			$this->version    = '1.3.11';
 
 			// paths
 			$this->file         = __FILE__;
