@@ -490,15 +490,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
  * @return object Returns an instance of the EDD_Auto_Register class
  */
 function edd_auto_register() {
-
-	if ( ! function_exists( 'edd_debug_log' ) ) {
-		function edd_debug_log( $message = '' ) {
-			error_log( $message, 3,  trailingslashit( wp_upload_dir() ) . 'edd-debug-log.txt' );
-		}
-	}
-
 	return EDD_Auto_Register::get_instance();
-
 }
 
 /**
