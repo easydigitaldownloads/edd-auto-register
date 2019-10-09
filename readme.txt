@@ -3,8 +3,8 @@ Contributors: easydigitaldownloads, sumobi, mordauk, cklosows, mindctrl
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=EFUPMPEZPGW7L
 Tags: easy digital downloads, digital downloads, e-downloads, edd, sumobi, purchase, auto, register, registration, e-commerce
 Requires at least: 3.3
-Tested up to: 5.2.2
-Stable tag: 1.3.11
+Tested up to: 5.2.3
+Stable tag: 1.3.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -119,6 +119,9 @@ There's an option under downloads &rarr; settings &rarr; extensions
 == Upgrade Notice ==
 
 == Changelog ==
+
+= Version 1.3.12, October 9, 2019 =
+* Fix: Removed legacy edd_debug_log function declaration in order to avoid producing errors during EDD Updates.
 
 = Version 1.3.11, July 26, 2019 =
 
