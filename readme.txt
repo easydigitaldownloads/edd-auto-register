@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: easy digital downloads, digital downloads, e-downloads, edd, sumobi, purchase, auto, register, registration, e-commerce
 Requires at least: 3.3
 Tested up to: 5.2.3
-Stable tag: 1.3.12
+Stable tag: 1.3.13
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -119,6 +119,10 @@ There's an option under downloads &rarr; settings &rarr; extensions
 == Upgrade Notice ==
 
 == Changelog ==
+
+= Version 1.3.13, October 22, 2019 =
+
+* Fix: Fatal error when Easy Digital DOwnloads core is not active.
 
 = Version 1.3.12, October 9, 2019 =
 * Fix: Removed legacy edd_debug_log function declaration in order to avoid producing errors during EDD Updates.
