@@ -105,8 +105,15 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		private function hooks() {
 
 			if ( ! class_exists( 'EDD_Customer' ) ) {
-				edd_debug_log( 'Auto Register: Not loaded, EDD_Customer class is not available.' );
+
 				add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+
+				if( function_exists( 'edd_debug_log') ) {
+
+					edd_debug_log( 'Auto Register: Not loaded, EDD_Customer class is not available.' );
+
+				}
+
 				return;
 			}
 
