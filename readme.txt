@@ -18,6 +18,8 @@ Once activated, EDD Auto Register will create a WordPress user account for your 
 
 Guest checkout is required so the plugin overrides the setting. The registration form is hidden on checkout while the plugin is active.
 
+Adds two email tags {set_password_link} and {login_link} which are only added when it the first purchase.
+
 There are various filters available for developers, see the FAQ tab for more information.
 
 **More add-ons for Easy Digital Downloads**
