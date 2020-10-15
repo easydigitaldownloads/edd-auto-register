@@ -137,9 +137,6 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			// create user when purchase is created
 			add_action( 'edd_payment_saved', array( $this, 'maybe_insert_user' ), 10, 2 );
 
-			// stop EDD from sending new user notification, we want to customize this a bit
-			remove_action( 'edd_insert_user', 'edd_new_user_notification', 10, 2 );
-
 			// add our new email notifications
 			add_action( 'edd_auto_register_insert_user', array( $this, 'email_notifications' ), 10, 3 );
 
@@ -292,6 +289,9 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 * @since 1.3
 		 */
 		public function maybe_insert_user( $payment_id, $payment ) {
+
+			// stop EDD from sending new user notification, we want to customize this a bit
+			remove_action( 'edd_insert_user', 'edd_new_user_notification', 10, 2 );
 
 			edd_debug_log( 'EDDAR: maybe_insert_user running...' );
 			edd_debug_log( 'Payment: ' . print_r( $payment, true ) );
