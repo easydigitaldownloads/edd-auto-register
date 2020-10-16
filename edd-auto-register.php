@@ -129,6 +129,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			add_action( 'after_setup_theme', array( $this, 'load_textdomain' ) );
 
 			// add settings
+			add_filter( 'edd_settings_sections_extensions', array( $this, 'settings_section' ) );
 			add_filter( 'edd_settings_extensions', array( $this, 'settings' ) );
 
 			// can the customer checkout?
@@ -431,6 +432,20 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			return $user_id;
 		}
 
+		/**
+		 * Add a settings section
+		 *
+		 * @param array $sections
+		 *
+		 * @since 1.3.14
+		 * @return array
+		 */
+		public function settings_section( $sections ) {
+			$sections['auto_register'] = __( 'Auto Register', 'edd-auto-register' );
+
+			return $sections;
+		}
+
 
 		/**
 		 * Settings
@@ -439,11 +454,6 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 */
 		public function settings( $settings ) {
 			$edd_ar_settings = array(
-				array(
-					'id' => 'edd_auto_register_header',
-					'name' => '<strong>' . __( 'Auto Register', 'edd-auto-register' ) . '</strong>',
-					'type' => 'header',
-				),
 				array(
 					'id' => 'edd_auto_register_disable_user_email',
 					'name' => __( 'Disable User Email', 'edd-auto-register' ),
@@ -457,6 +467,10 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 					'type' => 'checkbox',
 				),
 			);
+
+			if ( version_compare( EDD_VERSION, 2.5, '>=' ) ) {
+				$edd_ar_settings = array( 'auto_register' => $edd_ar_settings );
+			}
 
 			return array_merge( $settings, $edd_ar_settings );
 		}
