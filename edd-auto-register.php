@@ -3,7 +3,7 @@
  * Plugin Name: Easy Digital Downloads - Auto Register
  * Plugin URI:  https://easydigitaldownloads.com/downloads/auto-register/
  * Description: Automatically creates a WP user account at checkout, based on customer's email address.
- * Version:     1.3.13
+ * Version:     1.3.14
  * Author:      Sandhills Development, LLC
  * Author URI:  https://sandhillsdev.com
  * Text Domain: edd-auto-register
@@ -85,7 +85,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 */
 		private function setup_globals() {
 
-			$this->version    = '1.3.13';
+			$this->version    = '1.3.14';
 
 			// paths
 			$this->file         = __FILE__;
@@ -129,6 +129,7 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			add_action( 'after_setup_theme', array( $this, 'load_textdomain' ) );
 
 			// add settings
+			add_filter( 'edd_settings_sections_extensions', array( $this, 'settings_section' ) );
 			add_filter( 'edd_settings_extensions', array( $this, 'settings' ) );
 
 			// can the customer checkout?
@@ -136,9 +137,6 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 
 			// create user when purchase is created
 			add_action( 'edd_payment_saved', array( $this, 'maybe_insert_user' ), 10, 2 );
-
-			// stop EDD from sending new user notification, we want to customize this a bit
-			remove_action( 'edd_insert_user', 'edd_new_user_notification', 10, 2 );
 
 			// add our new email notifications
 			add_action( 'edd_auto_register_insert_user', array( $this, 'email_notifications' ), 10, 3 );
@@ -293,6 +291,9 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 */
 		public function maybe_insert_user( $payment_id, $payment ) {
 
+			// stop EDD from sending new user notification, we want to customize this a bit
+			remove_action( 'edd_insert_user', 'edd_new_user_notification', 10, 2 );
+
 			edd_debug_log( 'EDDAR: maybe_insert_user running...' );
 			edd_debug_log( 'Payment: ' . print_r( $payment, true ) );
 
@@ -431,6 +432,20 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 			return $user_id;
 		}
 
+		/**
+		 * Add a settings section
+		 *
+		 * @param array $sections
+		 *
+		 * @since 1.3.14
+		 * @return array
+		 */
+		public function settings_section( $sections ) {
+			$sections['auto_register'] = __( 'Auto Register', 'edd-auto-register' );
+
+			return $sections;
+		}
+
 
 		/**
 		 * Settings
@@ -439,11 +454,6 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 		 */
 		public function settings( $settings ) {
 			$edd_ar_settings = array(
-				array(
-					'id' => 'edd_auto_register_header',
-					'name' => '<strong>' . __( 'Auto Register', 'edd-auto-register' ) . '</strong>',
-					'type' => 'header',
-				),
 				array(
 					'id' => 'edd_auto_register_disable_user_email',
 					'name' => __( 'Disable User Email', 'edd-auto-register' ),
@@ -457,6 +467,10 @@ if ( ! class_exists( 'EDD_Auto_Register' ) ) {
 					'type' => 'checkbox',
 				),
 			);
+
+			if ( version_compare( EDD_VERSION, 2.5, '>=' ) ) {
+				$edd_ar_settings = array( 'auto_register' => $edd_ar_settings );
+			}
 
 			return array_merge( $settings, $edd_ar_settings );
 		}

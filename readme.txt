@@ -3,8 +3,8 @@ Contributors: easydigitaldownloads, sumobi, mordauk, cklosows, mindctrl
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=EFUPMPEZPGW7L
 Tags: easy digital downloads, digital downloads, e-downloads, edd, sumobi, purchase, auto, register, registration, e-commerce
 Requires at least: 3.3
-Tested up to: 5.2.3
-Stable tag: 1.3.13
+Tested up to: 5.5.1
+Stable tag: 1.3.14
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -119,6 +119,12 @@ There's an option under downloads &rarr; settings &rarr; extensions
 == Upgrade Notice ==
 
 == Changelog ==
+
+= Version 1.3.14, October 28, 2020 =
+
+* Fix: New user email not sent when Auto Register is active.
+* New: Add Danish translations.
+* New: Add Auto Register section in EDD Extension settings.
 
 = Version 1.3.13, October 22, 2019 =
 
